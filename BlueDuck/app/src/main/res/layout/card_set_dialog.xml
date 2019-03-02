@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical"
+        android:background="@drawable/dialog_background">
+
+        <TextView
+            android:id="@+id/card_set_text_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/default_card"
+            android:gravity="left"/>
+        <View
+            android:id="@+id/card_set_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/description_color"/>
+        <TextView
+            android:id="@+id/card_set_text_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/delete_card"
+            android:gravity="left"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="main_colors">#1E80C1</color>
+    <color name="main_colors_press">#094C79</color>
+    <color name="page_btn_color">#72C01E</color>
+    <color name="page_btn_color_press">#457C0B</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="description">#7c7c7c</color>
+    <color name="description_color">#C4C4C4</color>
+    <color name="register_select_color">#F9F9FB</color>
+    <color name="page_back_btn_color">#F0F0F0</color>
+    <color name="request_dialog_bg">#80000000</color>
+    <color name="red">#FF0000</color>
+    <color name="red_press">#930F0F</color>
+    <color name="red_stop_area_color">#28FF0000</color>
+    <color name="stop_area_color">#281E80C1</color>
+    <color name="seek_bar_bg">#ECF3F6</color>
+    <color name="menu_head_bg">#F8F8F8</color>
+
+    <!-- 二维码扫描 QR code scanning -->
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="scan_code_btn_color">#80C4C4C4</color>
+</resources>

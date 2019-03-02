@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/logo"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/verification_top_description"
+        android:gravity="center"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/password_bg"/>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/password_bg"/>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/password_bg"/>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/password_bg"/>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/password_bg"/>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/password_bg"/>
+
+        </LinearLayout>
+
+        <com.jungly.gridpasswordview.GridPasswordView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/password_view"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            app:gpvTextColor="@color/main_colors"
+            app:gpvPasswordLength="6"
+            app:gpvPasswordType="numberPassword"
+            app:gpvLineColor="@color/transparent"
+            app:gpvGridColor="@color/transparent"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resending_code"
+            android:textColor="@color/description"/>
+
+        <TextView
+            android:id="@+id/resend_code_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="00:00"
+            android:textColor="@color/main_colors"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</LinearLayout>

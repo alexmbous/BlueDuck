@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/history_bg_layout"
+    android:background="@color/white">
+
+    <include layout="@layout/history_title"/>
+
+    <RelativeLayout
+        android:id="@+id/no_history_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="100dp">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/no_history"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:text="@string/you_havent_taken_a_ride"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/history_description"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/first_ride_btn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="20dp"
+            android:textColor="@color/main_colors"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:text="@string/take_my_first_ride"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/skip_btn_white_bg"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/have_history_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/register_select_color"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/description_color"/>
+
+        <com.blueduck.ride.refresh.PullToRefreshListView
+            android:id="@+id/history_list"
+            android:divider="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</LinearLayout>

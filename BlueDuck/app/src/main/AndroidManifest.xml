@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.blueduck.ride">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <!-- Camera features - recommended -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+
+    <!-- ShareSDK -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 蓝牙分享所需的权限 Bluetooth sharing required permissions -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- google 地图渲染地图时使用 Use when the map renders the map-->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:name=".base.MyApplication"
+        android:theme="@style/AppTheme">
+        <activity android:name=".login.activity.WelcomeActivity"
+            android:theme="@style/LogoTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".login.activity.PageActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.PasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.PersonalInformationActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.VerificationActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.AddPaymentMethodActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.EnterCardActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.TermsOfUseActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.ScanDriverLicenseActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.EnableLocationActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".main.activity.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".main.activity.RateActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".main.activity.UnLockingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".qrcode.ScannerActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".qrcode.EnterCodeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".personal.activity.MyAccountActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".personal.activity.ResetPasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".billing.activity.BillingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".history.activity.HistoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".report.activity.ReportActivity" android:screenOrientation="portrait"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAt3zBFpuRrd3HdNc_7Bnsqc17Y7QMNeQA" />
+
+        <!-- 滑板车蓝牙服务 Scooter Bluetooth service -->
+        <service android:name="com.omni.ble.library.service.ScooterService" />
+        <!-- 下载更新服务 Download update service -->
+        <service android:name=".utils.DownloadService" />
+
+        <!-- 扫描信用卡回调 -->
+        <activity android:name="io.card.payment.CardIOActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="io.card.payment.DataEntryActivity" />
+
+        <!--
+        When calling the camera, the main reason is that after Android 7.0, Google officially replaced the original File Uri with Content Uri.
+        调用相机拍照时主要是由于在Android 7.0以后，google官方用了Content Uri 替换了原本的File Uri
+        -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+    </application>
+
+</manifest>
