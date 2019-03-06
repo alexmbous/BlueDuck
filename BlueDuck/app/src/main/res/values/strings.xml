@@ -25,14 +25,14 @@
     </string-array>
     <string-array name="page_top_two_array">
         <item>It\'s required by law</item>
-        <item>Locate the nearest duck to you</item>
-        <item>Register the duck you spotted</item>
+        <item>Locate the nearest Duck to you</item>
+        <item>Register the Duck you spotted</item>
         <item>Put your dominant foot forward to balance</item>
         <item>Gradually squeeze to reduce speed safely</item>
         <item>Press down on the toggle to increase your speed</item>
         <item>Soar to your destination</item>
         <item>Land out of harm\'s way at your favorite spots for other flock members to find</item>
-        <item>Report your duck through the app menu so we can take care of it</item>
+        <item>Report your Duck through the app menu so we can take care of it</item>
     </string-array>
     <string name="blank">&#160;</string>
     <string name="next">Next</string>
@@ -69,9 +69,9 @@
     <string name="terms_of_use">Terms of use</string>
     <string name="i_agree">I Agree</string>
     <string name="i_agree_text">By checking this box you agree to the terms of use.</string>
-    <string name="scan_driver_license_text">Scan Your Driver License</string>
+    <string name="scan_driver_license_text">Scan Your Driver\'s License</string>
     <string name="scan_driver_license_description_text">This in formation is to lorem ipsum dolor sit amet,consectetur adipiscing elit.</string>
-    <string name="do_this_later">Nah,I\'ll do this later</string>
+    <string name="do_this_later">Must be 16 and over to ride.</string>
     <string name="scan_now">Scan Now</string>
     <string name="enable_location_text">Please Enable Your Location</string>
     <string name="yes_enable">Yes,Enable</string>
@@ -91,8 +91,8 @@
         <item>How to Ride</item>
         <item>Support</item>
     </string-array>
-    <string name="how_to_ride_a_duck">How To ride a duck</string>
-    <string name="scan_scooter">Scan Scooter</string>
+    <string name="how_to_ride_a_duck">How To ride a Duck</string>
+    <string name="scan_scooter">Scan Duck</string>
     <string name="refuse_hint">Refuse will not be able to download the update!</string>
     <string name="version_update">Update Available</string>
     <string name="version_update_content_text">There is a new update for the app.Please download to make the process easier and to keep unlocking new adventures.</string>
@@ -136,10 +136,10 @@
     <string name="history_description">When you take your first ride you will see the details of that ride here.</string>
     <string name="take_my_first_ride">Take my First Ride</string>
     <string name="dollar">$</string>
-    <string name="scooter_number_text">Scooter:</string>
+    <string name="scooter_number_text">Duck:</string>
     <string name="history_details_date">Date</string>
     <string name="history_details_distance">Distance</string>
-    <string name="history_details_scooter">Scooter</string>
+    <string name="history_details_scooter">Duck</string>
     <string name="history_details_ride_time">Ride Time</string>
     <string name="history_details_cost">Cost</string>
     <string name="history_details_contact_support">Contact Support</string>
@@ -151,19 +151,19 @@
     <string name="select_issue">Select Issue</string>
     <string name="write_a_message">Write a Message</string>
     <string name="report_duck">Report Duck</string>
-    <string name="issue_edit_hint">Scan your scooter or enter its ID</string>
+    <string name="issue_edit_hint">Scan your Duck or enter its ID</string>
     <string name="you_have_submitted">You have submitted the fault and are waiting for the system to review!</string>
     <string name="please_select_the_issue">Please select the issue</string>
     <string name="report_success_title">Your report was submitted</string>
     <string name="report_success_content">Thank you for your submision.This helps us improve future experienses for you and other riders.</string>
 
     <!-- ride end -->
-    <string name="scooter">Scooter</string>
+    <string name="scooter">Duck</string>
     <string name="battery">Battery</string>
     <string name="end">End</string>
     <string name="how_was_your_ride">How was your ride?</string>
     <string name="dont_rate">Dont Rate</string>
-    <string name="report_scooter">Report Scooter</string>
+    <string name="report_scooter">Report Duck</string>
     <string name="border_dialog_title">NO PARKING ZONE</string>
     <string name="border_description_text">Uh oh.You\'ve parked outside of the service area,which means your ride is still going.To avoid fees,tap below to unlock the bike and park it in the service area.</string>
     <string name="forbid_description_text">Oops, this area is not legitimate for bike parking. Please return the bike to designated areas.</string>
@@ -184,9 +184,9 @@
     <string name="payment_dialog_btn_text">Add Payment Method</string>
 
     <!-- scan -->
-    <string name="scan_title">Scan code on scooter</string>
+    <string name="scan_title">Scan code on Duck</string>
     <string name="scan_enter_code">Enter Code</string>
-    <string name="enter_code_in_scooter">Enter code in scooter</string>
+    <string name="enter_code_in_scooter">Enter code in Duck</string>
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="ride_btn">Ride</string>
     <string name="not_camera_permission">Please open the "photo and video" access rights in "setting - > application management - > BlueDuck-> permissions"!</string>

@@ -720,7 +720,10 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
             ReturnCloseBean bean = (ReturnCloseBean) o;
             handlerUnlockClose(bean);
         }else if (flag == 7){//滑板车网络关锁成功请求单车使用信息结费 The scooter network locks successfully requests the bicycle to use the information fee
-            getBikeUseInfo();
+            handler.sendEmptyMessageDelayed(HANDLER_NETWORK_LOCK,3000);
+            if (isRiding) {
+                getBikeUseInfo();
+            }
         }else if (flag == 8){//上传用户骑行信息 Upload user ride information
             //Instead of doing result processing for the time being,
             // just request it because there is no requirement for the result data to perform certain operations
@@ -746,6 +749,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
         useEndNumber.setText(endBike.getTradeVo().getBikeUseVo().getNumber());
         LogUtils.i(TAG,"updateRidingEnd ：上传服务器关锁成功(骑行结束)");
         isUnLockClose = false;
+        rideId = endBike.getTradeVo().getBikeUseVo().getId();
         uploadRideInfo();//上传骑行信息 Uploading ride information
         scooterInfoLayout.setVisibility(View.GONE);
         useEndLayout.setVisibility(View.VISIBLE);
@@ -754,6 +758,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
         rateRideLayout.setVisibility(View.GONE);
         setCenter();
         handler.sendEmptyMessageDelayed(HANDLER_DISCONNECT,2000);
+        clearNetworkLock();
         clearMap();
     }
 
@@ -1006,6 +1011,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
         FinishBikeState finishBikeState = gson.fromJson(json.toString(), FinishBikeState.class);
         useEndNumber.setText(finishBikeState.getTradeVo().getBikeUseVo().getNumber());
         LogUtils.i(TAG,"骑行完成跳转界面");
+        rideId = finishBikeState.getTradeVo().getBikeUseVo().getId();
         isUnLockClose = false;
         uploadRideInfo();//上传骑行信息 Uploading ride information
         scooterInfoLayout.setVisibility(View.GONE);
@@ -1015,6 +1021,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
         rateRideLayout.setVisibility(View.GONE);
         setCenter();
         handler.sendEmptyMessage(HANDLER_DISCONNECT);
+        clearNetworkLock();
         clearMap();
     }
 
@@ -1250,6 +1257,13 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
         handler.sendEmptyMessage(HANDLER_SUE_TIME);
     }
 
+    private void clearNetworkLock(){//清除定时网络关锁
+        handler.removeMessages(HANDLER_NETWORK_LOCK);
+        handler.removeMessages(HANDLER_NETWORK_LOCK);
+        handler.removeMessages(HANDLER_NETWORK_LOCK);
+        RequestDialog.dismiss(this);
+    }
+
     private boolean isMapMoveUpdate = false;//是否地图移动刷新数据 Whether the map moves to refresh the data
     private boolean isMoveMapCenter = false;//是否移动到地图中心 Whether to move to the map center
     private boolean isUnLockClose = false;//是否通知服务器关锁 Whether to notify the server to lock
@@ -1260,6 +1274,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
     private static final int HANDLER_DISCONNECT = 105;
     private static final int HANDLER_SUE_TIME = 106;
     private static final int HANDLER_RATE_RIDE = 107;
+    private static final int HANDLER_NETWORK_LOCK = 108;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -1299,6 +1314,9 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
                 case HANDLER_RATE_RIDE:
                     isDontRate = false;
                     normalSate(0);
+                    break;
+                case HANDLER_NETWORK_LOCK://处理滑板车网络关锁，每隔3s请求一次，一直等拿到结费订单
+                    scooterLocking();
                     break;
             }
         }
@@ -1386,7 +1404,9 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
             } else if (BroadCastValues.REFRESH_BIKE_USE_INFO.equals(intent.getAction())) {//google消息推送广播(刷新单车使用信息，针对关锁了未跳转结费界面的情况)
                 if (isWindowFocus || isRiding){
                     //Google message push broadcast (refresh the bicycle use information, for the case of unlocking the un-jumping fee interface)
-                    getBikeUseInfo();
+                    if (isRiding) {
+                        getBikeUseInfo();
+                    }
                 }
             } else if (BroadCastValues.RATE_OR_DONT_RATE_SUCCESS.equals(intent.getAction())){//骑行结束评价或者不评价 End of ride evaluation or no evaluation
                 dontRate();

@@ -6,7 +6,7 @@ android {
         applicationId "com.blueduckapp.blueduck"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 21
+        versionCode 22
         versionName "2.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
@@ -70,3 +70,4 @@ dependencies {
     implementation 'io.card:android-sdk:5.5.1'
     implementation project(path: ':omniBleLibrary')
 }
+apply plugin: 'com.google.gms.google-services'//google推送

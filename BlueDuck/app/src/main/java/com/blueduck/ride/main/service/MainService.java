@@ -278,7 +278,6 @@ public class MainService extends BaseService {
                 .enqueue(new Callback<JSONObject>() {
                     @Override
                     public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                        RequestDialog.dismiss(mContext);
                         JSONObject jsonObject = response.body();
                         if (jsonObject != null){
                             LogUtils.i(TAG,"滑板车网络关锁 : "+jsonObject.toString());
@@ -286,11 +285,9 @@ public class MainService extends BaseService {
                                 int code = jsonObject.getInt("code");
                                 if (code == 200) {
                                     String result = jsonObject.getString("data");
-                                    if ("1".equals(result)){
-                                        callBack.onSuccess(result,flag);
-                                    }
+                                    callBack.onSuccess(result,flag);
                                 }else if (code == 202){
-                                    // TODO: 2018/12/12 屏蔽此状态，因为蓝牙与网络同时进行关锁，蓝牙关锁快的话网络就会202，会造成"data null"提示
+                                    callBack.onSuccess("202",flag);
                                 }else{
                                     CommonUtils.onFailure(mContext, code, TAG);
                                 }
@@ -298,6 +295,7 @@ public class MainService extends BaseService {
                                 e.printStackTrace();
                             }
                         }else{
+                            RequestDialog.dismiss(mContext);
                             CommonUtils.onFailure(mContext, 500, TAG);
                         }
                     }

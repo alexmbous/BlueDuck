@@ -94,6 +94,13 @@
             android:configChanges="keyboardHidden|orientation" />
         <activity android:name="io.card.payment.DataEntryActivity" />
 
+        <!-- google推送 -->
+        <service android:name=".push.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <!--
         When calling the camera, the main reason is that after Android 7.0, Google officially replaced the original File Uri with Content Uri.
         调用相机拍照时主要是由于在Android 7.0以后，google官方用了Content Uri 替换了原本的File Uri
