@@ -5,14 +5,19 @@ import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.blueduck.ride.R;
 import com.blueduck.ride.base.BaseActivity;
+import com.blueduck.ride.login.activity.LoginActivity;
 import com.blueduck.ride.main.activity.UnLockingActivity;
 import com.blueduck.ride.utils.BroadCastValues;
 import com.blueduck.ride.utils.CommonUtils;
@@ -25,6 +30,7 @@ public class EnterCodeActivity extends BaseActivity implements GridPasswordView.
     private ImageView backImg;
     private GridPasswordView gridPasswordView;
     private EditText numberEt;
+    private Button rideBtn;
     private boolean isIssue,isLight = false;//是否是报故障扫码 / Is it a fault scan code
     private String curLat,curLng,outArea,rideUser;
 
@@ -59,8 +65,11 @@ public class EnterCodeActivity extends BaseActivity implements GridPasswordView.
         gridPasswordView.setPasswordVisibility(true);
         gridPasswordView.setOnPasswordChangedListener(this);
         numberEt = (EditText) findViewById(R.id.enter_code_number_edit);
+        numberEt.addTextChangedListener(new MyTextWatcher());
         findViewById(R.id.scan_code_layout).setOnClickListener(this);
-        findViewById(R.id.ride_bottom).setOnClickListener(this);
+        rideBtn = (Button) findViewById(R.id.ride_bottom);
+        rideBtn.setOnClickListener(this);
+        rideBtn.setEnabled(false);
     }
 
     /**
@@ -189,5 +198,29 @@ public class EnterCodeActivity extends BaseActivity implements GridPasswordView.
     @Override
     public void onInputFinish(String psw) {
 
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.length() > 0){
+                rideBtn.setEnabled(true);
+                rideBtn.setBackground(ContextCompat.getDrawable(EnterCodeActivity.this,R.drawable.skip_btn_bg));
+            }else{
+                rideBtn.setEnabled(false);
+                rideBtn.setBackground(ContextCompat.getDrawable(EnterCodeActivity.this,R.drawable.skip_gray_btn_bg));
+            }
+        }
     }
 }

@@ -16,18 +16,27 @@
             android:id="@+id/enter_code_number_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/main_colors"
             android:background="@null"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:hint="@string/scooter_id"
+            android:visibility="visible"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/main_colors"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:visibility="visible"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scooter_id"
+            android:visibility="gone"/>
 
         <com.jungly.gridpasswordview.GridPasswordView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -36,7 +45,7 @@
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
             app:gpvTextColor="@color/main_colors"
-            app:gpvPasswordLength="4"
+            app:gpvPasswordLength="6"
             app:gpvPasswordType="numberPassword"
             app:gpvLineColor="@color/transparent"
             app:gpvGridColor="@color/transparent"
@@ -51,6 +60,26 @@
 
             <View
                 android:layout_width="5dp"
+                android:layout_height="match_parent"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/main_colors"/>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="match_parent"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/main_colors"/>
+
+            <View
+                android:layout_width="10dp"
                 android:layout_height="match_parent"/>
 
             <View
@@ -116,7 +145,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/scan_top_image"/>
+            android:src="@drawable/enter_code_scan_image"/>
 
     </LinearLayout>
 
@@ -124,7 +153,7 @@
         android:id="@+id/ride_bottom"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/skip_btn_bg"
+        android:background="@drawable/skip_gray_btn_bg"
         android:layout_margin="20dp"
         android:textColor="@color/white"
         android:textStyle="bold"

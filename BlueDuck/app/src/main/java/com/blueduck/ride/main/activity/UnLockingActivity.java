@@ -398,7 +398,7 @@ public class UnLockingActivity extends BaseScooterServiceActivity implements Req
                 }
             }else if (code == 30010){//正在解锁 Unlocking
                 count += 1;
-                if (count > 120){
+                if (count > 60){
                     showDialog(getResources().getString(R.string.unlock_time_out));
                 }else{
                     if (!isPause)handler.sendEmptyMessageDelayed(0, 1000);
@@ -448,10 +448,12 @@ public class UnLockingActivity extends BaseScooterServiceActivity implements Req
                         // (only for the locks that are on the bike and using Bluetooth)
                         //保存蓝牙地址到本地，防止划掉App和退出登录（只针对骑行中并使用蓝牙开的锁）
                         saveSpValue(CommonSharedValues.SP_MAC_ADDRESS, unLockMac);
-                        if (!isOpenBlue()) {
-                            isOpenBlueDialog(tcpConnected);
-                        } else {
-                            bleUnlock();
+                        if ("0".equals(tcpConnected)) {
+                            if (!isOpenBlue()) {
+                                isOpenBlueDialog(tcpConnected);
+                            } else {
+                                bleUnlock();
+                            }
                         }
                     }
                 } else if ("0".equals(lockBean.getData())) {
@@ -461,8 +463,10 @@ public class UnLockingActivity extends BaseScooterServiceActivity implements Req
                 showDialog(getString(R.string.in_the_location));
             }else if (code == 202) {//单车编号不存在 Bicycle number does not exist
                 showDialog(getString(R.string.bike_number_not_exist));
-            }else if (code == 20004){//暂停使用单车 Suspension of bicycle use
-                showDialog(getString(R.string.suspension_of_cycling));
+            }else if (code == 20004){//不能再骑车子了 you_have_been_stopped_riding_a_duck
+                showDialog(getString(R.string.you_have_been_stopped_riding_a_duck));
+            }else if (code == 20005){//账号被冻结 your_account_has_been_frozen
+                showDialog(getString(R.string.your_account_has_been_frozen));
             }else if (code == 30001){//单车正在使用中 Bicycle is in use
                 isUse = true;
                 String mac = "";
@@ -513,6 +517,8 @@ public class UnLockingActivity extends BaseScooterServiceActivity implements Req
                 showDialog(getString(R.string.bicycle_has_been_offline));
             }else if (code == 30019) {//单车未激活 Bicycle is not activated
                 showDialog(getString(R.string.bike_not_activated));
+            }else if (code == 30021) {//不在服务器状态 Not in server state
+                showDialog(getString(R.string.not_in_server_state));
             }else{
                 CommonUtils.onFailure(this,code,TAG);
             }

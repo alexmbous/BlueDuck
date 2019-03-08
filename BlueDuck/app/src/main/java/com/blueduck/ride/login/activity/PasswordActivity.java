@@ -1,6 +1,9 @@
 package com.blueduck.ride.login.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -15,19 +18,23 @@ import com.blueduck.ride.base.BaseActivity;
 import com.blueduck.ride.login.bean.LoginBean;
 import com.blueduck.ride.login.service.LoginService;
 import com.blueduck.ride.main.activity.MainActivity;
+import com.blueduck.ride.utils.BroadCastValues;
 import com.blueduck.ride.utils.CommonSharedValues;
 import com.blueduck.ride.utils.CommonUtils;
+import com.blueduck.ride.utils.LogUtils;
 import com.blueduck.ride.utils.RequestCallBack;
 
 public class PasswordActivity extends BaseActivity implements RequestCallBack {
 
     private static final String TAG = "PasswordActivity";
+    public static final String FORGET_SUCCESS = "forget_success";
 
     private EditText passwordEt;
     private Button loginBtn;
     private LoginService loginService;
     private String account,password;
     private double lat,lng;
+    private ForgetBroad forgetBroad;
 
     @Override
     protected int setLayoutViewId() {
@@ -40,12 +47,22 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
         account = getIntent().getStringExtra("account");
         lat = getIntent().getDoubleExtra("lat",0);
         lng = getIntent().getDoubleExtra("lng",0);
+        initBroad();
+    }
+
+    private void initBroad(){
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(FORGET_SUCCESS);
+        forgetBroad = new ForgetBroad();
+        registerReceiver(forgetBroad,intentFilter);
     }
 
     @Override
     protected void initView() {
         passwordEt = (EditText) findViewById(R.id.password_edit);
         passwordEt.addTextChangedListener(new MyTextWatcher());
+        findViewById(R.id.forget_password_text).setOnClickListener(this);
+        findViewById(R.id.password_back_layout).setOnClickListener(this);
         loginBtn = (Button) findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(this);
         loginBtn.setEnabled(false);
@@ -55,6 +72,12 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()){
+            case R.id.password_back_layout:
+                finish();
+                break;
+            case R.id.forget_password_text:
+                getEmailCode();
+                break;
             case R.id.login_btn:
                 loginBottom();
                 break;
@@ -80,10 +103,29 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
                 CommonUtils.getUniqueId(this),1);
     }
 
+    /**
+     * 获得邮箱验证码
+     * Get the mailbox verification code
+     */
+    private void getEmailCode(){
+        loginService.getEmailCode(account,"2",2);
+    }
+
     private void handlerLogin(LoginBean loginBean){
         CommonUtils.saveLoginInfo(sp,loginBean,account,"",2);
+        sendBroadcast(new Intent(BroadCastValues.FINISH_BROAD));
         startActivity(new Intent(this,MainActivity.class));
         finish();
+    }
+
+    private void handlerVerificationCode(){
+        LogUtils.i(TAG, "获取验证码成功ok");
+        Intent intent = new Intent(this, VerificationActivity.class);
+        intent.putExtra("skipType", 3);
+        intent.putExtra("smsAndEmailType", "2");
+        intent.putExtra("account", account);
+        intent.putExtra("accountType",2);
+        startActivity(intent);
     }
 
     @Override
@@ -91,6 +133,8 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
         if (flag == 1){
             LoginBean loginBean = (LoginBean) o;
             handlerLogin(loginBean);
+        }else if (flag == 2){
+            handlerVerificationCode();
         }
     }
 
@@ -121,5 +165,23 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
                 loginBtn.setBackground(ContextCompat.getDrawable(PasswordActivity.this,R.drawable.skip_gray_btn_bg));
             }
         }
+    }
+
+    private class ForgetBroad extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (FORGET_SUCCESS.equals(intent.getAction())){
+                passwordEt.setText(sp.getString(CommonSharedValues.SP_KEY_PASSWORD,""));
+                passwordEt.requestFocus();
+                passwordEt.setSelection(passwordEt.length());
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(forgetBroad);
     }
 }

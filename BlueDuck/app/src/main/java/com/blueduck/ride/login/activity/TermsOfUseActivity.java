@@ -58,7 +58,7 @@ public class TermsOfUseActivity extends BaseActivity {
     }
 
     private void setData(){
-        url = RetrofitHttp.BASE_URL + "other?requestType=50001&industryId=" + CommonSharedValues.industryType + "&type=" + 1;
+        url = RetrofitHttp.BASE_URL + "other?requestType=50001&industryId=" + CommonSharedValues.industryType + "&type=" + 10;
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient(){
 

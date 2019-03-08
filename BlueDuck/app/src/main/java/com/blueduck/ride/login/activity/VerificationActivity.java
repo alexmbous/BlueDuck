@@ -214,7 +214,7 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
             String code = gridPasswordView.getPassWord();
             if (skipType == 1){//注册 register
                 registerLogin(code);
-            }else if (skipType == 2){//修改密码 change password
+            }else if (skipType == 2 || skipType == 3){//修改密码 change password / 忘记密码 forget password
                 changePassword(code);
             }
         }

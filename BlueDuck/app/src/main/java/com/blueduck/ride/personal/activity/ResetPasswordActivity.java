@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.blueduck.ride.R;
 import com.blueduck.ride.base.BaseActivity;
+import com.blueduck.ride.login.activity.PasswordActivity;
 import com.blueduck.ride.personal.service.PersonalService;
 import com.blueduck.ride.utils.BroadCastValues;
 import com.blueduck.ride.utils.CommonSharedValues;
@@ -106,10 +107,11 @@ public class ResetPasswordActivity extends BaseActivity implements RequestCallBa
     }
 
     private void handlerSubmitSuccess(){
-        SharedPreferences.Editor editor= sp.edit();
+        SharedPreferences.Editor editor = sp.edit();
         editor.putString(CommonSharedValues.SP_KEY_PASSWORD,confirmPas);
-        editor.commit();
+        editor.apply();
         sendBroadcast(new Intent(MyAccountActivity.CHANGE_SUCCESS));
+        sendBroadcast(new Intent(PasswordActivity.FORGET_SUCCESS));
         sendBroadcast(new Intent(BroadCastValues.FINISH_BROAD));
         finish();
     }

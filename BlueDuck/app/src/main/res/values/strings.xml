@@ -75,6 +75,7 @@
     <string name="scan_now">Scan Now</string>
     <string name="enable_location_text">Please Enable Your Location</string>
     <string name="yes_enable">Yes,Enable</string>
+    <string name="forget_password">Forget Password</string>
 
     <!-- main -->
     <array name="menu_list_img_array">
@@ -193,6 +194,7 @@
     <string name="not_location_permission">Please open the "locate" access rights in the "Settings - > application management - > BlueDuck-> permissions"!</string>
     <string name="scan_driver_license">Scan Driver License</string>
     <string name="scan_driver_license_description">Lorem ipsum dolor sit amet,consectetur adipiscing elit.</string>
+    <string name="scooter_id">Duck ID</string>
 
     <!--dialog-->
     <string name="loading">loading...</string>
@@ -225,7 +227,8 @@
     <string name="in_the_location">Please grant OmniRide GPS access and try again.</string>
     <string name="bicycle_is_in_use">This bike is in use.Please try another one.</string>
     <string name="bike_number_not_exist">Please make sure you are closed to the bike</string>
-    <string name="suspension_of_cycling">Suspension of cycling</string>
+    <string name="you_have_been_stopped_riding_a_duck">You have been stopped riding a duck!</string>
+    <string name="your_account_has_been_frozen">Your account has been frozen!</string>
     <string name="bicycle_has_been_damaged">This bike is under maintenance</string>
     <string name="bicycle_has_been_scrapped">Bicycle has been scrapped</string>
     <string name="bicycle_has_been_reservation">Bicycle has been reservation</string>
@@ -242,6 +245,7 @@
     <string name="reservation_exceeded">You have reached the maximum number of reservation today. Please try again tomorrow.</string>
     <string name="bicycle_has_been_offline">The bike is temporarily not available for group riding. Please try another one.</string>
     <string name="bike_not_activated">This bike has not been activated</string>
+    <string name="not_in_server_state">Not in server state</string>
     <string name="illegal_credit_card">Illegal credit card</string>
     <string name="bind_card_error">Bind the bank card failed, please check whether the information is entered incorrectly</string>
     <string name="invitation_code_not_exist">The invitation code does not exist</string>

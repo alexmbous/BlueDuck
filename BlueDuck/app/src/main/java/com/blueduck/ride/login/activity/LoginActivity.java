@@ -106,7 +106,6 @@ public class LoginActivity extends BaseActivity implements RequestCallBack,Locat
             intent.putExtra("lat",lat);
             intent.putExtra("lng",lng);
             startActivity(intent);
-            finish();
         }else{
             CommonUtils.onFailure(this, code, TAG);
         }

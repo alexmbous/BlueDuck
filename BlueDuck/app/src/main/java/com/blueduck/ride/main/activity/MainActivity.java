@@ -721,9 +721,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
             handlerUnlockClose(bean);
         }else if (flag == 7){//滑板车网络关锁成功请求单车使用信息结费 The scooter network locks successfully requests the bicycle to use the information fee
             handler.sendEmptyMessageDelayed(HANDLER_NETWORK_LOCK,3000);
-            if (isRiding) {
-                getBikeUseInfo();
-            }
+            getBikeUseInfo();
         }else if (flag == 8){//上传用户骑行信息 Upload user ride information
             //Instead of doing result processing for the time being,
             // just request it because there is no requirement for the result data to perform certain operations
@@ -1030,7 +1028,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
      * normal
      **/
     private void normalSate(int code) {
-        if (!isDontRate) {
+        if (!isDontRate && useEndLayout.getVisibility() == View.GONE) {
             bikeState = 0;
             LogUtils.i(TAG, "正常状态 code=" + code + "-----data null");//数据不存在 Data does not exist
             restoreMarker();
@@ -1075,7 +1073,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
         saveSharedValue(CommonSharedValues.SP_KEY_NUMBER,runBikeState.getBikeVo().getNumber());
         startUseTime();
         useNumber.setText(runBikeState.getBikeVo().getNumber());
-        useBattery.setText(runBikeState.getBikeVo().getPowerPercent() + "%");
+        useBattery.setText(runBikeState.getBikeVo().getPower() + "%");
         bikeType = runBikeState.getBikeVo().getBikeType();
         scooterLockingDate = runBikeState.getDate();
         rideId = runBikeState.getId();
@@ -1404,9 +1402,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
             } else if (BroadCastValues.REFRESH_BIKE_USE_INFO.equals(intent.getAction())) {//google消息推送广播(刷新单车使用信息，针对关锁了未跳转结费界面的情况)
                 if (isWindowFocus || isRiding){
                     //Google message push broadcast (refresh the bicycle use information, for the case of unlocking the un-jumping fee interface)
-                    if (isRiding) {
-                        getBikeUseInfo();
-                    }
+                    getBikeUseInfo();
                 }
             } else if (BroadCastValues.RATE_OR_DONT_RATE_SUCCESS.equals(intent.getAction())){//骑行结束评价或者不评价 End of ride evaluation or no evaluation
                 dontRate();

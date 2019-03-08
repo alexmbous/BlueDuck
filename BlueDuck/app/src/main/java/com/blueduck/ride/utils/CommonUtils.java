@@ -977,41 +977,4 @@ public class CommonUtils {
         }
     }
 
-    /**
-     * Reserved return code
-     * 预约返回的code
-     * @param mContext
-     * @param code
-     * @param TAG
-     */
-    public static void reserveCode(Context mContext,int code,String TAG){
-        if(code == 20004) {//暂停使用单车 Suspension of bicycle use
-            hintDialog(mContext, mContext.getString(R.string.suspension_of_cycling));
-        } else if (code == 30001) {//单车正在使用中 Bicycle is in use
-            hintDialog(mContext, mContext.getString(R.string.bicycle_is_use));
-        } else if (code == 30002) {//单车已损坏 Bicycle is damaged
-            hintDialog(mContext, mContext.getString(R.string.bicycle_has_been_damaged));
-        } else if (code == 30003) {//单车已报废 Bicycle has been scrapped
-            hintDialog(mContext, mContext.getString(R.string.bicycle_has_been_scrapped));
-        } else if (code == 30004) {//单车已被预约 Bicycle has been reserved
-            hintDialog(mContext, mContext.getString(R.string.bicycle_has_been_reservation));
-        } else if (code == 30005) {//单车解锁成功 Bicycle unlocked successfully
-            hintDialog(mContext, mContext.getString(R.string.bike_lock_success));
-        } else if (code == 30006) {//已有预约的单车 Already reserved bicycle
-            hintDialog(mContext, mContext.getString(R.string.has_a_bike_of_appointment));
-        } else if (code == 30007) {//未通过认证 Not certified
-            hintDialog(mContext, mContext.getString(R.string.not_through_the_certification));
-        } else if (code == 30008) {//余额不足 Insufficient balance
-            hintDialog(mContext, mContext.getString(R.string.not_sufficient_funds));
-        } else if (code == 30009) {//有未支付的订单 Have unpaid orders
-            hintDialog(mContext, mContext.getString(R.string.have_unpaid_orders));
-        } else if (code == 30016) {//单车预约次数为0 The number of bicycle reservations is 0
-            hintDialog(mContext, mContext.getString(R.string.reservation_exceeded));
-        } else if (code == 30019) {//单车未激活 Bicycle is not activated
-            hintDialog(mContext, mContext.getString(R.string.bike_not_activated));
-        } else {
-            onFailure(mContext, code, TAG);
-        }
-    }
-
 }
