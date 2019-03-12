@@ -111,7 +111,7 @@ public class LoginActivity extends BaseActivity implements RequestCallBack,Locat
         }
     }
 
-    private void handlerVerificationCode(){
+    private void handlerVerificationCode(int invalidMinute){
         LogUtils.i(TAG, "获取验证码成功ok");
         Intent intent = new Intent(this, VerificationActivity.class);
         intent.putExtra("skipType", 1);
@@ -120,6 +120,7 @@ public class LoginActivity extends BaseActivity implements RequestCallBack,Locat
         intent.putExtra("lat",lat);
         intent.putExtra("lng",lng);
         intent.putExtra("accountType",2);
+        intent.putExtra("invalidMinute",invalidMinute);
         startActivity(intent);
     }
 
@@ -129,7 +130,8 @@ public class LoginActivity extends BaseActivity implements RequestCallBack,Locat
             int code = (Integer) o;
             handlerLogin(code);
         }else if (flag == 2){
-            handlerVerificationCode();
+            int invalidMinute = (Integer) o;
+            handlerVerificationCode(invalidMinute);
         }
     }
 

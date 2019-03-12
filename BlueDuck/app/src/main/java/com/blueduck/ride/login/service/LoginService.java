@@ -148,7 +148,8 @@ public class LoginService extends BaseService {
                 if (code == 200) {
                     String data = jsonObject.getString("data");
                     if ("1".equals(data)){
-                        callBack.onSuccess(data,flag);
+                        int invalidMinute = jsonObject.getInt("invalid_minute");
+                        callBack.onSuccess(invalidMinute,flag);
                     }else{
                         CommonUtils.hintDialog(mContext, mContext.getString(R.string.fail_to_get));
                     }

@@ -53,6 +53,7 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
     private void initBroad(){
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(FORGET_SUCCESS);
+        intentFilter.addAction(BroadCastValues.FINISH_BROAD);
         forgetBroad = new ForgetBroad();
         registerReceiver(forgetBroad,intentFilter);
     }
@@ -115,16 +116,16 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
         CommonUtils.saveLoginInfo(sp,loginBean,account,"",2);
         sendBroadcast(new Intent(BroadCastValues.FINISH_BROAD));
         startActivity(new Intent(this,MainActivity.class));
-        finish();
     }
 
-    private void handlerVerificationCode(){
+    private void handlerVerificationCode(int invalidMinute){
         LogUtils.i(TAG, "获取验证码成功ok");
         Intent intent = new Intent(this, VerificationActivity.class);
         intent.putExtra("skipType", 3);
         intent.putExtra("smsAndEmailType", "2");
         intent.putExtra("account", account);
         intent.putExtra("accountType",2);
+        intent.putExtra("invalidMinute",invalidMinute);
         startActivity(intent);
     }
 
@@ -134,7 +135,8 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
             LoginBean loginBean = (LoginBean) o;
             handlerLogin(loginBean);
         }else if (flag == 2){
-            handlerVerificationCode();
+            int invalidMinute = (Integer) o;
+            handlerVerificationCode(invalidMinute);
         }
     }
 
@@ -175,6 +177,8 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
                 passwordEt.setText(sp.getString(CommonSharedValues.SP_KEY_PASSWORD,""));
                 passwordEt.requestFocus();
                 passwordEt.setSelection(passwordEt.length());
+            }else if (BroadCastValues.FINISH_BROAD.equals(intent.getAction())){
+                finish();
             }
         }
     }

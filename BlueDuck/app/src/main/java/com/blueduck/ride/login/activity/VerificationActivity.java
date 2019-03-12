@@ -30,7 +30,7 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
     private GridPasswordView gridPasswordView;
     private TextView time;
 
-    private int skipType,accountType;
+    private int skipType,accountType,invalidMinute;
     private String smsAndEmailType,account,regions;
     private double lat,lng;
     private LoginService loginService;
@@ -68,6 +68,8 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
         lat = getIntent().getDoubleExtra("lat",0);
         lng = getIntent().getDoubleExtra("lng",0);
         accountType = getIntent().getIntExtra("accountType",0);
+        invalidMinute = getIntent().getIntExtra("invalidMinute",0);
+        timeCount = 60 * invalidMinute;
         initBroadCast();
     }
 
@@ -111,15 +113,19 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
      * @param timeCount
      */
     private void startTime(int timeCount){
-        String timeStr = "";
-        if (timeCount < 10){
-            timeStr = "0"+timeCount;
-        }else{
-            timeStr = timeCount+"";
-        }
-        String showTime = String.format("%s:%s", "00", timeStr);
+        String showTime = String.format("%s:%s", setTimeFormat(timeCount / 60), setTimeFormat(timeCount % 60));
         time.setText(showTime);
         time.setEnabled(false);
+    }
+
+    private String setTimeFormat(long time){
+        String timeStr = "";
+        if (time < 10){
+            timeStr = "0" + time;
+        }else{
+            timeStr = time+"";
+        }
+        return timeStr;
     }
 
     /**
@@ -127,7 +133,7 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
      * 停止倒计时
      */
     private void stopTime(){
-        timeCount = 60;
+        timeCount = 60 * invalidMinute;
         time.setEnabled(true);
         time.setText(getString(R.string.resend));
         handler.removeMessages(VERIFICATION_CODE_TIME);
@@ -187,12 +193,16 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(CommonSharedValues.SP_KEY_TOKEN,token);
         editor.apply();
-        startActivity(new Intent(this,ResetPasswordActivity.class));
+        Intent intent = new Intent(this,ResetPasswordActivity.class);
+        intent.putExtra("skipType",skipType);
+        startActivity(intent);
     }
 
     @Override
     public void onSuccess(Object o, int flag) {
         if (flag == 1){
+            invalidMinute = (Integer) o;
+            timeCount = 60 * invalidMinute;
             handlerResendCode();
         }else if (flag == 2){
             LoginBean loginBean = (LoginBean) o;

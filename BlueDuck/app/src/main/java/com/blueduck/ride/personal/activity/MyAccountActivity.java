@@ -306,7 +306,7 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         }else if (requestCode == TAILOR && resultCode == RESULT_OK && data != null) {//剪裁照片回调 Crop photo callback
             Bitmap bitmapImg = BitmapFactory.decodeFile(outputPhotoFile.getAbsolutePath());//拿到剪切数据 Get cut data
             imagePath = CommonUtils.saveImageToGallery(this, bitmapImg);
-            showHead();
+            showHead(imagePath);
         }else if (requestCode == PHOTO_ALBUM && resultCode == RESULT_OK && data != null) {//从手机相册选择照片回调 Select a photo callback from your phone's photo album
             outputPhotoFile = CommonUtils.startPhotoZoom(this,data.getData(), 150,TAILOR);//调用剪裁 Call clipping
         }
@@ -316,7 +316,7 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
      * Show round picture
      * 显示圆形图片
      */
-    private void showHead(){
+    private void showHead(String imagePath){
         Glide.with(getApplicationContext())
                 .load(imagePath)
                 .transform(new GlideCircleTransform(getApplicationContext()))
@@ -363,9 +363,9 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
 
     private void handlerUserInfo(UserInfoBean bean){
         CommonUtils.saveUserInfo(sp,bean);
-        imagePath = bean.getUserInfo().getUserVo().getHeadUrl();
+        String imagePath = bean.getUserInfo().getUserVo().getHeadUrl();
         if (!TextUtils.isEmpty(imagePath)) {
-            showHead();
+            showHead(imagePath);
         }
         String firstN = bean.getUserInfo().getFirstname();
         String lastN = bean.getUserInfo().getLastname();
@@ -393,13 +393,14 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         }
     }
 
-    private void handlerVerificationCode(){
+    private void handlerVerificationCode(int invalidMinute){
         LogUtils.i(TAG, "获取验证码成功ok");
         Intent intent = new Intent(this, VerificationActivity.class);
         intent.putExtra("skipType", 2);
         intent.putExtra("smsAndEmailType", "2");
         intent.putExtra("account", email);
         intent.putExtra("accountType",2);
+        intent.putExtra("invalidMinute",invalidMinute);
         startActivity(intent);
     }
 
@@ -413,7 +414,8 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         }else if (flag == 3){
             handlerUploadUserInfo();
         }else if (flag == 4){
-            handlerVerificationCode();
+            int invalidMinute = (Integer) o;
+            handlerVerificationCode(invalidMinute);
         }
     }
 

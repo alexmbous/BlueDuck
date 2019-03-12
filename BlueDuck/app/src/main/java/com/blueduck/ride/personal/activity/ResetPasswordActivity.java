@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.blueduck.ride.R;
 import com.blueduck.ride.base.BaseActivity;
+import com.blueduck.ride.login.activity.LoginActivity;
 import com.blueduck.ride.login.activity.PasswordActivity;
 import com.blueduck.ride.personal.service.PersonalService;
 import com.blueduck.ride.utils.BroadCastValues;
@@ -27,6 +28,7 @@ public class ResetPasswordActivity extends BaseActivity implements RequestCallBa
     private Button saveBtn;
     private String newPas,confirmPas;
     private PersonalService personalService;
+    private int skipType;
 
     @Override
     protected int setLayoutViewId() {
@@ -36,6 +38,7 @@ public class ResetPasswordActivity extends BaseActivity implements RequestCallBa
     @Override
     protected void init() {
         personalService = new PersonalService(this,this,TAG);
+        skipType = getIntent().getIntExtra("skipType",0);
     }
 
     @Override
@@ -113,6 +116,9 @@ public class ResetPasswordActivity extends BaseActivity implements RequestCallBa
         sendBroadcast(new Intent(MyAccountActivity.CHANGE_SUCCESS));
         sendBroadcast(new Intent(PasswordActivity.FORGET_SUCCESS));
         sendBroadcast(new Intent(BroadCastValues.FINISH_BROAD));
+        if (skipType == 3){//忘记密码 forget password
+            startActivity(new Intent(this, LoginActivity.class));
+        }
         finish();
     }
 
