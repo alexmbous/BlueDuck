@@ -16,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitHttp {
 
-//    public static final String BASE_URL = "http://192.168.100.44:8088/blueduck/";//本地
     public static final String BASE_URL = "https://backend.flywild.io/blueduck/";//服务器
     public static final String GOOGLE_DIRECTIONS_URL = "https://maps.googleapis.com/maps/api/directions/";
 

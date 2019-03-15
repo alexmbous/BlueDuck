@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -27,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.blueduck.ride.R;
 import com.blueduck.ride.base.BaseActivity;
 import com.blueduck.ride.login.activity.VerificationActivity;
@@ -41,7 +39,6 @@ import com.blueduck.ride.utils.DateDialog;
 import com.blueduck.ride.utils.GlideCircleTransform;
 import com.blueduck.ride.utils.LogUtils;
 import com.blueduck.ride.utils.RequestCallBack;
-import com.blueduck.ride.utils.RequestDialog;
 import com.blueduck.ride.utils.SelectPopupWindow;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -50,20 +47,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
 
 public class MyAccountActivity extends BaseActivity implements RequestCallBack,SelectPopupWindow.SelectPopupWindowCall {
 
     private static final String TAG = "MyAccountActivity";
-    private static final String UPLOAD_SUCCESS = "upload_success";
     public static final String CHANGE_SUCCESS = "change_success";
     private ImageView headImg;
-    private EditText firstNameEt,lastNameEt,passwordEt;
+    private EditText firstNameEt,lastNameEt,passwordEt,phoneEt;
     private TextView emailEt,birthEt;
 
     private Calendar ca;
     private int mYear,mMonth,mDay,maxDay;
-    private String firstName,lastName,email,birthday,password,imagePath;
+    private String firstName,lastName,email,phone,birthday,password,imagePath;
     private LoginService loginService;
     private MainService mainService;
 
@@ -108,6 +103,7 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         firstNameEt = (EditText) findViewById(R.id.first_name_edit);
         lastNameEt = (EditText) findViewById(R.id.last_name_edit);
         emailEt = (TextView) findViewById(R.id.my_account_email_edit);
+        phoneEt = (EditText) findViewById(R.id.my_account_phone_edit);
         birthEt = (TextView) findViewById(R.id.my_account_date_of_birth_edit);
         birthEt.setOnClickListener(this);
         passwordEt = (EditText) findViewById(R.id.my_account_password_edit);
@@ -174,14 +170,15 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         firstName = firstNameEt.getText().toString().trim();
         lastName = lastNameEt.getText().toString().trim();
         email = emailEt.getText().toString().trim();
+        phone = phoneEt.getText().toString().trim();
         birthday = birthEt.getText().toString().trim();
         password = passwordEt.getText().toString().trim();
-        if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(email)
+        if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)
                 || TextUtils.isEmpty(birthday) || TextUtils.isEmpty(password)){
             Toast.makeText(this,getString(R.string.not_null),Toast.LENGTH_SHORT).show();
         }else{
             if (!TextUtils.isEmpty(imagePath)){
-                uploadS3();
+                loginService.amazonS3Upload(imagePath,5);
             }else{
                 uploadUserInfo();
             }
@@ -195,47 +192,6 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
                 birthEt.setText((month < 10 ? ("0"+month) : month)+"/"+(day < 10 ? ("0"+day) : day)+"/"+year);
             }
         },mYear,mMonth,mDay,maxDay,DateDialog.Choose_birthday,0);
-    }
-
-    /**
-     * Amazon asynchronously uploads user avatars
-     * 亚马逊异步上传用户头像
-     */
-    private void uploadS3(){
-        new S3Example().execute(imagePath);
-    }
-
-    /***
-     * Amazon asynchronously uploads user avatars
-     * 亚马逊异步上传用户头像
-     **/
-    private class S3Example extends AsyncTask<String, Void, String> {
-
-        String uuid = "";
-
-        public S3Example() {
-            RequestDialog.show(MyAccountActivity.this);
-            uuid = UUID.randomUUID().toString().toUpperCase();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            File file = new File(strings[0]);
-            PutObjectRequest putObjectRequest = new PutObjectRequest(CommonSharedValues.AMAZONS3_BUCKET_NAME, uuid + ".jpg", file);
-            CommonUtils.getS3Client().putObject(putObjectRequest);
-            return UPLOAD_SUCCESS;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            RequestDialog.dismiss(MyAccountActivity.this);
-            if (UPLOAD_SUCCESS.equals(s)) {
-                String url = CommonSharedValues.AMAZONS3_IMAGE_PATH_PREFIX + uuid + ".jpg";
-                LogUtils.i(TAG, "onPostExecute: ----------上传ok---------" + url);
-                updatePhoto(url);
-            }
-        }
     }
 
     //同时请求相机，相册多项权限 At the same time request camera, album multiple permissions
@@ -345,7 +301,7 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
      * Upload user information
      */
     private void uploadUserInfo(){
-        loginService.uploadUserInfo(sp.getString(CommonSharedValues.SP_KEY_TOKEN,""),firstName,lastName,email,password,birthday,"2",3);
+        loginService.uploadUserInfo(sp.getString(CommonSharedValues.SP_KEY_TOKEN,""),firstName,lastName,email,phone,password,birthday,"2",3);
     }
 
     /**
@@ -384,6 +340,7 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
             }
         }
         emailEt.setText(bean.getUserInfo().getEmail());
+        phoneEt.setText(bean.getUserInfo().getUserVo().getPhone());
         birthEt.setText(bean.getUserInfo().getBirthday());
         String password = sp.getString(CommonSharedValues.SP_KEY_PASSWORD, "");
         if (!TextUtils.isEmpty(password)){
@@ -416,6 +373,9 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         }else if (flag == 4){
             int invalidMinute = (Integer) o;
             handlerVerificationCode(invalidMinute);
+        }else if (flag == 5){
+            String url = (String) o;
+            updatePhoto(url);
         }
     }
 

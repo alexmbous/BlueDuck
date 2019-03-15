@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,7 +15,6 @@ import com.blueduck.ride.R;
 import com.blueduck.ride.base.BaseActivity;
 import com.blueduck.ride.login.bean.LoginBean;
 import com.blueduck.ride.login.service.LoginService;
-import com.blueduck.ride.main.activity.MainActivity;
 import com.blueduck.ride.personal.activity.ResetPasswordActivity;
 import com.blueduck.ride.utils.BroadCastValues;
 import com.blueduck.ride.utils.CommonSharedValues;
@@ -22,6 +22,7 @@ import com.blueduck.ride.utils.CommonUtils;
 import com.blueduck.ride.utils.LogUtils;
 import com.blueduck.ride.utils.RequestCallBack;
 import com.jungly.gridpasswordview.GridPasswordView;
+
 
 public class VerificationActivity extends BaseActivity implements GridPasswordView.OnPasswordChangedListener,RequestCallBack {
 
@@ -31,7 +32,7 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
     private TextView time;
 
     private int skipType,accountType,invalidMinute;
-    private String smsAndEmailType,account,regions;
+    private String smsAndEmailType,account,regions,imagePath,name,phone,password,birthday;
     private double lat,lng;
     private LoginService loginService;
     private FinishBroad finishBroad;
@@ -69,6 +70,13 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
         lng = getIntent().getDoubleExtra("lng",0);
         accountType = getIntent().getIntExtra("accountType",0);
         invalidMinute = getIntent().getIntExtra("invalidMinute",0);
+
+        imagePath = getIntent().getStringExtra("imagePath");
+        name = getIntent().getStringExtra("name");
+        phone = getIntent().getStringExtra("phone");
+        password = getIntent().getStringExtra("password");
+        birthday = getIntent().getStringExtra("birthday");
+
         timeCount = 60 * invalidMinute;
         initBroadCast();
     }
@@ -151,10 +159,19 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
         }
     }
 
+    /**
+     * 获得邮箱验证码
+     * Get the mailbox verification code
+     */
     private void getEmailCode(){
         loginService.getEmailCode(account,smsAndEmailType,1);
     }
 
+    /**
+     * 注册
+     * register
+     * @param code
+     */
     private void registerLogin(String code){
         loginService.registerLogin(account,code,lat,lng,
                 shared.getString(CommonSharedValues.GOOGLE_PUSH_TOKEN,""),
@@ -170,6 +187,21 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
         loginService.changePassword(account,code,3);
     }
 
+    /**
+     * Update user avatar
+     * 更新用户头像
+     */
+    private void updatePhoto(String url){
+        loginService.updatePhoto(sp.getString(CommonSharedValues.SP_KEY_TOKEN,""),url,5);
+    }
+    /**
+     * 上传用户信息
+     * Upload user information
+     */
+    private void uploadUserInfo(){
+        loginService.uploadUserInfo(sp.getString(CommonSharedValues.SP_KEY_TOKEN,""),name,name,account,phone,password,birthday,"1",6);
+    }
+
     private void handlerResendCode(){
         LogUtils.i(TAG, "获取验证码成功ok");
         handler.sendEmptyMessage(VERIFICATION_CODE_TIME);
@@ -177,15 +209,10 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
 
     private void handlerRegister(LoginBean loginBean){
         CommonUtils.saveLoginInfo(sp,loginBean,account,regions,accountType);
-        if("1".equals(loginBean.getIsRegister())){
-            LogUtils.i(TAG, "handlerResult: 是注册");
-            Intent intent = new Intent(this,PersonalInformationActivity.class);
-            intent.putExtra("account",account);
-            startActivity(intent);
+        if (!TextUtils.isEmpty(imagePath)){
+            loginService.amazonS3Upload(imagePath,4);
         }else{
-            LogUtils.i(TAG, "handlerResult: 是登录");
-            startActivity(new Intent(this,MainActivity.class));
-            sendBroadcast(new Intent(BroadCastValues.FINISH_BROAD));
+            uploadUserInfo();
         }
     }
 
@@ -196,6 +223,10 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
         Intent intent = new Intent(this,ResetPasswordActivity.class);
         intent.putExtra("skipType",skipType);
         startActivity(intent);
+    }
+
+    private void handlerUploadUserInfo(){
+        startActivity(new Intent(this,AddPaymentMethodActivity.class));
     }
 
     @Override
@@ -210,6 +241,13 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
         }else if (flag == 3){
             String token = (String) o;
             handlerChangePassword(token);
+        }else if (flag == 4){
+            String url = (String) o;
+            updatePhoto(url);
+        }else if (flag == 5){
+            uploadUserInfo();
+        }else if (flag == 6){
+            handlerUploadUserInfo();
         }
     }
 
@@ -254,4 +292,5 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
         super.onDestroy();
         unregisterReceiver(finishBroad);
     }
+
 }

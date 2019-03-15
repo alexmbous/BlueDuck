@@ -1,19 +1,29 @@
 package com.blueduck.ride.login.service;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.blueduck.ride.R;
 import com.blueduck.ride.base.BaseService;
 import com.blueduck.ride.login.bean.LoginBean;
+import com.blueduck.ride.login.bean.RegionsBean;
+import com.blueduck.ride.utils.CommonSharedValues;
 import com.blueduck.ride.utils.CommonUtils;
 import com.blueduck.ride.utils.LogUtils;
 import com.blueduck.ride.utils.RequestCallBack;
 import com.blueduck.ride.utils.RequestDialog;
 import com.blueduck.ride.utils.RetrofitHttp;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.util.List;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +33,48 @@ public class LoginService extends BaseService {
 
     public LoginService(Context context, RequestCallBack callBack, String TAG) {
         super(context, callBack, TAG);
+    }
+
+    /**
+     * 获得国家电话区域号
+     * Get the national telephone area number
+     * @param flag
+     */
+    public void getRegions(final int flag){
+        RequestDialog.show(mContext);
+        RetrofitHttp.getRetrofit(0).create(LoginApi.class)
+                .getRegions(LoginParameter.getRegions())
+                .enqueue(new Callback<JSONObject>() {
+                    @Override
+                    public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                        RequestDialog.dismiss(mContext);
+                        JSONObject jsonObject = response.body();
+                        if (jsonObject != null){
+                            LogUtils.i(TAG,"获得国家电话区域号："+jsonObject.toString());
+                            try {
+                                int code = jsonObject.getInt("code");
+                                if (code == 200){
+                                    Gson gson = new Gson();
+                                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                    List<RegionsBean> list = gson.fromJson(jsonArray.toString(),new TypeToken<List<RegionsBean>>(){}.getType());
+                                    callBack.onSuccess(list,flag);
+                                }else{
+                                    CommonUtils.onFailure(mContext, code, TAG);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+                            CommonUtils.onFailure(mContext, 500, TAG);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JSONObject> call, Throwable t) {
+                        RequestDialog.dismiss(mContext);
+                        CommonUtils.serviceError(mContext,t);
+                    }
+                });
     }
 
     /**
@@ -134,6 +186,32 @@ public class LoginService extends BaseService {
     }
 
     /**
+     * 获得短信验证码
+     * Get SMS verification code
+     * @param phone
+     * @param regions
+     * @param smsType
+     * @param flag
+     */
+    public void getPhoneCode(String phone, String regions, String smsType,final int flag){
+        RequestDialog.show(mContext);
+        RetrofitHttp.getRetrofit(0).create(LoginApi.class)
+                .getPhoneCode(LoginParameter.phoneCodeParameter(phone,regions,smsType))
+                .enqueue(new Callback<JSONObject>() {
+                    @Override
+                    public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                        analysisData(response,flag);
+                    }
+
+                    @Override
+                    public void onFailure(Call<JSONObject> call, Throwable t) {
+                        RequestDialog.dismiss(mContext);
+                        CommonUtils.serviceError(mContext,t);
+                    }
+                });
+    }
+
+    /**
      * Analytical data
      * 解析数据
      * @param response
@@ -153,6 +231,8 @@ public class LoginService extends BaseService {
                     }else{
                         CommonUtils.hintDialog(mContext, mContext.getString(R.string.fail_to_get));
                     }
+                }else if (code == 202) {//该用户不存在 The user already exists
+                    CommonUtils.hintDialog(mContext,mContext.getString(R.string.account_does_not_exist));
                 }else if (code == 203) {//该用户已存在 The user already exists
                     CommonUtils.hintDialog(mContext, mContext.getString(R.string.user_exists));
                 }else if (code == 205) {//您今日的短信次数已用完 Your text message has been used up today
@@ -227,10 +307,10 @@ public class LoginService extends BaseService {
      * @param type
      * @param flag
      */
-    public void uploadUserInfo(String token, String firstName, String lastName, String email, String password, String birthday, final String type, final int flag){
+    public void uploadUserInfo(String token, String firstName, String lastName, String email, String phone, String password, String birthday, final String type, final int flag){
         RequestDialog.show(mContext);
         RetrofitHttp.getRetrofit(0).create(LoginApi.class)
-                .uploadUserInfo(LoginParameter.uploadUserInfo(token,firstName,lastName,email,password,birthday,type))
+                .uploadUserInfo(LoginParameter.uploadUserInfo(token,firstName,lastName,email,phone,password,birthday,type))
                 .enqueue(new Callback<JSONObject>() {
                     @Override
                     public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
@@ -410,5 +490,45 @@ public class LoginService extends BaseService {
                         CommonUtils.serviceError(mContext,t);
                     }
                 });
+    }
+
+    /**
+     * Amazon asynchronously uploads user avatars
+     * 亚马逊异步上传用户头像
+     * @param imagePath
+     */
+    public void amazonS3Upload(String imagePath,int flag){
+        new S3Example(flag).execute(imagePath);
+    }
+
+    private class S3Example extends AsyncTask<String, Void, String> {
+
+        String uuid = "";
+        int flag = 0;
+
+        public S3Example(int flag) {
+            this.flag = flag;
+            RequestDialog.show(mContext);
+            uuid = UUID.randomUUID().toString().toUpperCase();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            File file = new File(strings[0]);
+            PutObjectRequest putObjectRequest = new PutObjectRequest(CommonSharedValues.AMAZONS3_BUCKET_NAME, uuid + ".jpg", file);
+            CommonUtils.getS3Client().putObject(putObjectRequest);
+            return "UPLOAD_SUCCESS";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            RequestDialog.dismiss(mContext);
+            if ("UPLOAD_SUCCESS".equals(s)) {
+                String url = CommonSharedValues.AMAZONS3_IMAGE_PATH_PREFIX + uuid + ".jpg";
+                LogUtils.i(TAG, "onPostExecute: ----------上传ok---------" + url);
+                callBack.onSuccess(url,flag);
+            }
+        }
     }
 }

@@ -24,7 +24,6 @@ import com.blueduck.ride.utils.BroadCastValues;
 import com.blueduck.ride.utils.CommonSharedValues;
 import com.blueduck.ride.utils.CommonUtils;
 import com.blueduck.ride.utils.LocationClient;
-import com.blueduck.ride.utils.LogUtils;
 import com.blueduck.ride.utils.RequestCallBack;
 
 public class LoginActivity extends BaseActivity implements RequestCallBack,LocationClient.LocationCallBack {
@@ -93,13 +92,13 @@ public class LoginActivity extends BaseActivity implements RequestCallBack,Locat
         loginService.verifyAccount(account,1);
     }
 
-    private void getEmailCode(){
-        loginService.getEmailCode(account,"1",2);
-    }
-
     private void handlerLogin(int code){
         if (code == 202){//账号不存在 Account does not exist
-            getEmailCode();
+            Intent intent = new Intent(this,PersonalInformationActivity.class);
+            intent.putExtra("account",account);
+            intent.putExtra("lat",lat);
+            intent.putExtra("lng",lng);
+            startActivity(intent);
         }else if (code == 203){//账号已存在 The account already exists.
             Intent intent = new Intent(this,PasswordActivity.class);
             intent.putExtra("account",account);
@@ -111,27 +110,11 @@ public class LoginActivity extends BaseActivity implements RequestCallBack,Locat
         }
     }
 
-    private void handlerVerificationCode(int invalidMinute){
-        LogUtils.i(TAG, "获取验证码成功ok");
-        Intent intent = new Intent(this, VerificationActivity.class);
-        intent.putExtra("skipType", 1);
-        intent.putExtra("smsAndEmailType", "1");
-        intent.putExtra("account", account);
-        intent.putExtra("lat",lat);
-        intent.putExtra("lng",lng);
-        intent.putExtra("accountType",2);
-        intent.putExtra("invalidMinute",invalidMinute);
-        startActivity(intent);
-    }
-
     @Override
     public void onSuccess(Object o, int flag) {
         if (flag == 1){
             int code = (Integer) o;
             handlerLogin(code);
-        }else if (flag == 2){
-            int invalidMinute = (Integer) o;
-            handlerVerificationCode(invalidMinute);
         }
     }
 
@@ -141,17 +124,12 @@ public class LoginActivity extends BaseActivity implements RequestCallBack,Locat
     }
 
     private class MyTextWatcher implements TextWatcher{
-
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
-
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
-
         @Override
         public void afterTextChanged(Editable s) {
             if (s.length() > 0){

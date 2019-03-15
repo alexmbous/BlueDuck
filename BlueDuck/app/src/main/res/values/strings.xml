@@ -47,6 +47,7 @@
     <string name="personal_information_description">This in formation is to lorem ipsum dolor sit amet,consectetur adipiscing elit.</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
+    <string name="phone">Phone</string>
     <string name="password">Password</string>
     <string name="date_of_birth">Date of Birth</string>
     <string name="create_account">Create Account</string>
@@ -76,6 +77,8 @@
     <string name="enable_location_text">Please Enable Your Location</string>
     <string name="yes_enable">Yes,Enable</string>
     <string name="forget_password">Forget Password</string>
+    <string name="countries_and_regions">Countries and Regions</string>
+    <string name="select_regions_text">Please select countries and regions</string>
 
     <!-- main -->
     <array name="menu_list_img_array">
@@ -111,6 +114,7 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="my_account_email">Email</string>
+    <string name="my_account_phone">Phone</string>
     <string name="my_account_date_of_birth">Date of Birth</string>
     <string name="drivers_license_number">Drivers License Number</string>
     <string name="my_account_password">Password</string>
@@ -261,6 +265,8 @@
     <string name="account_has_been_frozen">Account has been frozen</string>
     <string name="request_error">Your request is too frequent. Please try again later.</string>
     <string name="email_error">Please enter the correct email address</string>
+    <string name="phone_error">Please enter the correct phone number</string>
+    <string name="register_error">Please enter the correct phone number or email address</string>
     <string name="password_length_hint">Password must be at least 8 characters long</string>
     <string name="unlike">Passwords do not match</string>
     <string name="operation_failed_please_try_again">Operation failed please try again!</string>

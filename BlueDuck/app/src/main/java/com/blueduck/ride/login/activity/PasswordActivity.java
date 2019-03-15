@@ -27,8 +27,6 @@ import com.blueduck.ride.utils.RequestCallBack;
 public class PasswordActivity extends BaseActivity implements RequestCallBack {
 
     private static final String TAG = "PasswordActivity";
-    public static final String FORGET_SUCCESS = "forget_success";
-
     private EditText passwordEt;
     private Button loginBtn;
     private LoginService loginService;
@@ -52,7 +50,6 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
 
     private void initBroad(){
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(FORGET_SUCCESS);
         intentFilter.addAction(BroadCastValues.FINISH_BROAD);
         forgetBroad = new ForgetBroad();
         registerReceiver(forgetBroad,intentFilter);
@@ -173,11 +170,7 @@ public class PasswordActivity extends BaseActivity implements RequestCallBack {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (FORGET_SUCCESS.equals(intent.getAction())){
-                passwordEt.setText(sp.getString(CommonSharedValues.SP_KEY_PASSWORD,""));
-                passwordEt.requestFocus();
-                passwordEt.setSelection(passwordEt.length());
-            }else if (BroadCastValues.FINISH_BROAD.equals(intent.getAction())){
+            if (BroadCastValues.FINISH_BROAD.equals(intent.getAction())){
                 finish();
             }
         }

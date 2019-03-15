@@ -22,6 +22,15 @@ public interface LoginApi {
     Call<JSONObject> refreshToken(@QueryMap Map<String,String> map);
 
     /**
+     * 获得国家区域号
+     * Get the country code
+     * @param map
+     * @return
+     */
+    @GET("other")
+    Call<JSONObject> getRegions(@QueryMap Map<String,String> map);
+
+    /**
      * 校验账号是否已存在
      * Verify that the account already exists
      * @param map
@@ -49,6 +58,15 @@ public interface LoginApi {
      */
     @POST("other")
     Call<JSONObject> getEmailCode(@QueryMap Map<String,String> map);
+
+    /**
+     * 获得短信验证码
+     * Get SMS verification code
+     * @param map
+     * @return
+     */
+    @GET("other")
+    Call<JSONObject> getPhoneCode(@QueryMap Map<String,String> map);
 
     /**
      * 上传用户信息

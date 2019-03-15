@@ -10,6 +10,17 @@ import java.util.Map;
 public class LoginParameter {
 
     /**
+     * 获得国家电话区域号
+     * Get the national telephone area number
+     * @return
+     */
+    public static Map<String,String> getRegions(){
+        Map<String,String> map = new HashMap<>();
+        map.put("requestType","50003");
+        return map;
+    }
+
+    /**
      * 校验账号是否已存在
      * Verify that the account already exists
      * @param account
@@ -67,6 +78,24 @@ public class LoginParameter {
     }
 
     /**
+     * SMS verification code parameters
+     * 短信验证码参数
+     * @param phone
+     * @param regions
+     * @param smsType
+     * @return
+     */
+    public static Map<String,String> phoneCodeParameter(String phone, String regions, String smsType){
+        Map<String,String> map = new HashMap<>();
+        map.put("industryId", CommonSharedValues.industryType);
+        map.put("requestType", "50002");
+        map.put("phone", AESUtil.aesEncrypt(phone, AESUtil.PHONE_KEY));
+        map.put("phoneCode", regions);
+        map.put("smsType", smsType);
+        return map;
+    }
+
+    /**
      * 注册登录
      * register log in
      * @param account
@@ -105,13 +134,14 @@ public class LoginParameter {
      * @param type
      * @return
      */
-    public static Map<String,String> uploadUserInfo(String token,String firstName,String lastName,String email,String password,String birthday,String type){
+    public static Map<String,String> uploadUserInfo(String token,String firstName,String lastName,String email,String phone,String password,String birthday,String type){
         Map<String,String> map = new HashMap<>();
         map.put("requestType","20005");
         map.put("token",token);
         map.put("firstName",firstName);
         map.put("lastName",lastName);
         map.put("email",email);
+        map.put("phone",phone);
         map.put("password",CommonUtils.md5(password));
         map.put("birthday",birthday);
         map.put("type",type);

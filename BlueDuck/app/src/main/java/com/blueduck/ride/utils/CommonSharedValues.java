@@ -9,7 +9,6 @@ public class CommonSharedValues {
 
     public static final String industryType = "1";//保存的公共产业ID /Saved public industry ID
     public static final String BLE_SCOOTER_KEY = "GAtmiLB5";//scooter ble key
-//    public static final String BLE_SCOOTER_KEY = "yOTmK50z";//scooter ble key
 
     /**通知ID Notification ID **/
     public static final int DOWNLOAD_SERVICE_NOTIFICATION = 1;//版本更新service通知 / Version update service notification

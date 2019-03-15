@@ -60,6 +60,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".login.activity.PageActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.activity.AreaCodeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".login.activity.LoginActivity" android:screenOrientation="portrait"/>
         <activity android:name=".login.activity.PasswordActivity" android:screenOrientation="portrait"/>
         <activity android:name=".login.activity.PersonalInformationActivity" android:screenOrientation="portrait"/>

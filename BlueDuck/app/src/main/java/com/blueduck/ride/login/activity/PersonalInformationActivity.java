@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -23,18 +22,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.blueduck.ride.R;
 import com.blueduck.ride.base.BaseActivity;
 import com.blueduck.ride.login.service.LoginService;
 import com.blueduck.ride.utils.BroadCastValues;
-import com.blueduck.ride.utils.CommonSharedValues;
 import com.blueduck.ride.utils.CommonUtils;
 import com.blueduck.ride.utils.DateDialog;
 import com.blueduck.ride.utils.GlideCircleTransform;
 import com.blueduck.ride.utils.LogUtils;
 import com.blueduck.ride.utils.RequestCallBack;
-import com.blueduck.ride.utils.RequestDialog;
 import com.blueduck.ride.utils.SelectPopupWindow;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -43,16 +39,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
 
 public class PersonalInformationActivity extends BaseActivity implements SelectPopupWindow.SelectPopupWindowCall,RequestCallBack {
 
     private static final String TAG = "PersonalInformationActi";
-    private static final String UPLOAD_SUCCESS = "upload_success";
     private ImageView imageHead;
-    private EditText nameEt,emailEt,passwordEt,dateOfBirthEt;
+    private EditText nameEt,emailEt,phoneEt,passwordEt,dateOfBirthEt;
     private Button createAccountBtn;
-    private String imagePath,name,email,password,birthday;
+    private String imagePath,name,email,phone,password,birthday;
+    private double lat,lng;
     private LoginService loginService;
     private FinishBroad finishBroad;
 
@@ -68,6 +63,8 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
     protected void init() {
         loginService = new LoginService(this,this,TAG);
         email = getIntent().getStringExtra("account");
+        lat = getIntent().getDoubleExtra("lat",0);
+        lng = getIntent().getDoubleExtra("lng",0);
         ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
@@ -91,6 +88,7 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
         imageHead.setOnClickListener(this);
         nameEt = (EditText) findViewById(R.id.name_edit);
         emailEt = (EditText) findViewById(R.id.email_edit);
+        phoneEt = (EditText) findViewById(R.id.phone_edit);
         passwordEt = (EditText) findViewById(R.id.password_edit);
         dateOfBirthEt = (EditText) findViewById(R.id.date_of_birth_edit);
         dateOfBirthEt.setOnClickListener(this);
@@ -100,6 +98,7 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
         MyTextWatcher myTextWatcher = new MyTextWatcher();
         nameEt.addTextChangedListener(myTextWatcher);
         emailEt.addTextChangedListener(myTextWatcher);
+        phoneEt.addTextChangedListener(myTextWatcher);
         passwordEt.addTextChangedListener(myTextWatcher);
         dateOfBirthEt.addTextChangedListener(myTextWatcher);
         emailEt.setText(email);
@@ -146,9 +145,10 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
     private void checkData(){
         name = nameEt.getText().toString();
         email = emailEt.getText().toString().trim();
+        phone = phoneEt.getText().toString().trim();
         password = passwordEt.getText().toString().trim();
         birthday = dateOfBirthEt.getText().toString().trim();
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(birthday)){
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(password) || TextUtils.isEmpty(birthday)){
             createAccountBtn.setEnabled(false);
             createAccountBtn.setBackground(ContextCompat.getDrawable(PersonalInformationActivity.this,R.drawable.skip_gray_btn_bg));
         }else{
@@ -159,71 +159,48 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
 
     private void createAccountBottom(){
         checkData();
-        if (password.length() < 8){
+        if (!CommonUtils.isNumber(phone)){
+            Toast.makeText(this,getString(R.string.phone_error),Toast.LENGTH_SHORT).show();
+        }else if (password.length() < 8){
             Toast.makeText(this,getString(R.string.password_length_hint),Toast.LENGTH_SHORT).show();
         }else{
-            if (!TextUtils.isEmpty(imagePath)){
-                uploadS3();
-            }else{
-                uploadUserInfo();
-            }
+            getEmailCode();
         }
     }
 
-    /**
-     * Update user avatar
-     * 更新用户头像
-     */
-    private void updatePhoto(String url){
-        loginService.updatePhoto(sp.getString(CommonSharedValues.SP_KEY_TOKEN,""),url,1);
-    }
-    /**
-     * 上传用户信息
-     * Upload user information
-     */
-    private void uploadUserInfo(){
-        loginService.uploadUserInfo(sp.getString(CommonSharedValues.SP_KEY_TOKEN,""),name,name,email,password,birthday,"1",2);
+    private void getEmailCode(){
+        loginService.getEmailCode(email,"1",1);
     }
 
-    /**
-     * Amazon asynchronously uploads user avatars
-     * 亚马逊异步上传用户头像
-     */
-    private void uploadS3(){
-        new S3Example().execute(imagePath);
+    private void handlerVerificationCode(int invalidMinute){
+        LogUtils.i(TAG, "获取验证码成功ok");
+        Intent intent = new Intent(this, VerificationActivity.class);
+        intent.putExtra("skipType", 1);
+        intent.putExtra("smsAndEmailType", "1");
+        intent.putExtra("account", email);
+        intent.putExtra("lat",lat);
+        intent.putExtra("lng",lng);
+        intent.putExtra("accountType",2);
+        intent.putExtra("invalidMinute",invalidMinute);
+        intent.putExtra("imagePath",imagePath);
+        intent.putExtra("name",name);
+        intent.putExtra("phone",phone);
+        intent.putExtra("password",password);
+        intent.putExtra("birthday",birthday);
+        startActivity(intent);
     }
 
-    /***
-     * Amazon asynchronously uploads user avatars
-     * 亚马逊异步上传用户头像
-     **/
-    private class S3Example extends AsyncTask<String, Void, String> {
-
-        String uuid = "";
-
-        public S3Example() {
-            RequestDialog.show(PersonalInformationActivity.this);
-            uuid = UUID.randomUUID().toString().toUpperCase();
+    @Override
+    public void onSuccess(Object o, int flag) {
+        if (flag == 1){
+            int invalidMinute = (Integer) o;
+            handlerVerificationCode(invalidMinute);
         }
+    }
 
-        @Override
-        protected String doInBackground(String... strings) {
-            File file = new File(strings[0]);
-            PutObjectRequest putObjectRequest = new PutObjectRequest(CommonSharedValues.AMAZONS3_BUCKET_NAME, uuid + ".jpg", file);
-            CommonUtils.getS3Client().putObject(putObjectRequest);
-            return UPLOAD_SUCCESS;
-        }
+    @Override
+    public void onFail(Throwable t, int flag) {
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            RequestDialog.dismiss(PersonalInformationActivity.this);
-            if (UPLOAD_SUCCESS.equals(s)) {
-                String url = CommonSharedValues.AMAZONS3_IMAGE_PATH_PREFIX + uuid + ".jpg";
-                LogUtils.i(TAG, "onPostExecute: ----------上传ok---------" + url);
-                updatePhoto(url);
-            }
-        }
     }
 
     //同时请求相机，相册多项权限 At the same time request camera, album multiple permissions
@@ -310,24 +287,6 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
                 .transform(new GlideCircleTransform(getApplicationContext()))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageHead);
-    }
-
-    private void handlerUploadUserInfo(){
-        startActivity(new Intent(this,AddPaymentMethodActivity.class));
-    }
-
-    @Override
-    public void onSuccess(Object o, int flag) {
-        if (flag == 1){
-            uploadUserInfo();
-        }else if (flag == 2){
-            handlerUploadUserInfo();
-        }
-    }
-
-    @Override
-    public void onFail(Throwable t, int flag) {
-
     }
 
     /**

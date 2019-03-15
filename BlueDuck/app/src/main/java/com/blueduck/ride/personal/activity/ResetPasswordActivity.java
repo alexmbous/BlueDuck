@@ -114,7 +114,6 @@ public class ResetPasswordActivity extends BaseActivity implements RequestCallBa
         editor.putString(CommonSharedValues.SP_KEY_PASSWORD,confirmPas);
         editor.apply();
         sendBroadcast(new Intent(MyAccountActivity.CHANGE_SUCCESS));
-        sendBroadcast(new Intent(PasswordActivity.FORGET_SUCCESS));
         sendBroadcast(new Intent(BroadCastValues.FINISH_BROAD));
         if (skipType == 3){//忘记密码 forget password
             startActivity(new Intent(this, LoginActivity.class));
