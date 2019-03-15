@@ -30,16 +30,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amazonaws.ClientConfiguration;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.blueduck.ride.BuildConfig;
 import com.blueduck.ride.R;
 import com.blueduck.ride.base.BaseActivity;
 import com.blueduck.ride.base.MyApplication;
 import com.blueduck.ride.login.activity.LoginActivity;
-import com.blueduck.ride.login.service.LoginApi;
 import com.blueduck.ride.login.bean.LoginBean;
+import com.blueduck.ride.login.service.LoginApi;
 import com.blueduck.ride.main.bean.UserInfoBean;
 
 import org.json.JSONException;
@@ -196,14 +193,14 @@ public class CommonUtils {
      * 获得亚马逊上传图片或文件实例
      * @return
      */
-    public static AmazonS3Client getS3Client(){
+    /*public static AmazonS3Client getS3Client(){
         ClientConfiguration configuration = new ClientConfiguration();
         configuration.setConnectionTimeout(60 * 1000);// 连接超时，默认60秒 Connection timeout, default 60 seconds
         configuration.setSocketTimeout(60 * 1000);// socket超时，默认60秒 Socket timeout, default 60 seconds
         configuration.setMaxConnections(5);// 最大并发请求书，默认5个 Maximum concurrent request, default 5
         configuration.setMaxErrorRetry(2);// 失败后最大重试次数，默认2次 Maximum number of retries after failure, default 2 times
         return new AmazonS3Client(new BasicAWSCredentials(CommonSharedValues.AMAZONS3_ACCESS_KEY,CommonSharedValues.AMAZONS3_SECRET_KEY),configuration);
-    }
+    }*/
 
     /*
      * 将时间转换为时间戳

@@ -1,14 +1,11 @@
 package com.blueduck.ride.login.service;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.blueduck.ride.R;
 import com.blueduck.ride.base.BaseService;
 import com.blueduck.ride.login.bean.LoginBean;
 import com.blueduck.ride.login.bean.RegionsBean;
-import com.blueduck.ride.utils.CommonSharedValues;
 import com.blueduck.ride.utils.CommonUtils;
 import com.blueduck.ride.utils.LogUtils;
 import com.blueduck.ride.utils.RequestCallBack;
@@ -21,9 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -497,11 +492,11 @@ public class LoginService extends BaseService {
      * 亚马逊异步上传用户头像
      * @param imagePath
      */
-    public void amazonS3Upload(String imagePath,int flag){
+    /*public void amazonS3Upload(String imagePath,int flag){
         new S3Example(flag).execute(imagePath);
-    }
+    }*/
 
-    private class S3Example extends AsyncTask<String, Void, String> {
+    /*private class S3Example extends AsyncTask<String, Void, String> {
 
         String uuid = "";
         int flag = 0;
@@ -530,5 +525,5 @@ public class LoginService extends BaseService {
                 callBack.onSuccess(url,flag);
             }
         }
-    }
+    }*/
 }

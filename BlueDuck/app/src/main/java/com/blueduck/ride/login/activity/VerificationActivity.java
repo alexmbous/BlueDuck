@@ -210,7 +210,8 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
     private void handlerRegister(LoginBean loginBean){
         CommonUtils.saveLoginInfo(sp,loginBean,account,regions,accountType);
         if (!TextUtils.isEmpty(imagePath)){
-            loginService.amazonS3Upload(imagePath,4);
+            //loginService.amazonS3Upload(imagePath,4);
+            //TODO: handle avatar
         }else{
             uploadUserInfo();
         }

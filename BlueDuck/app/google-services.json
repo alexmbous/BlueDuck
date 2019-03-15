@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "584132056292",
-    "firebase_url": "https://blueduck-scooter.firebaseio.com",
-    "project_id": "blueduck-scooter",
-    "storage_bucket": "blueduck-scooter.appspot.com"
+    "project_number": "900516679210",
+    "firebase_url": "https://app-blueduck.firebaseio.com",
+    "project_id": "app-blueduck",
+    "storage_bucket": "app-blueduck.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:584132056292:android:629baf2a0f68582d",
+        "mobilesdk_app_id": "1:900516679210:android:629baf2a0f68582d",
         "android_client_info": {
           "package_name": "com.blueduckapp.blueduck"
         }
       },
       "oauth_client": [
         {
-          "client_id": "584132056292-elgb27gslbvp9lbbdu2i8vcr822gmpal.apps.googleusercontent.com",
+          "client_id": "900516679210-9p4n28mpqredf3si1ris7d4esm2mo40d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBc_FPrVOULLWUtV7zWkyxcSZ_8DlkGILg"
+          "current_key": "AIzaSyCV-6IeTzFr3YpZq41ocnotZk9QWaWy_xE"
         }
       ],
       "services": {

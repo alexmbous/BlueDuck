@@ -15,10 +15,10 @@ public class CommonSharedValues {
     public static final int PUSH_SERVICE_NOTIFICATION = 3;//google推送service通知 / Google push service notification
 
     /**亚马逊上传常量值 Amazon upload constant value **/
-    public static final String AMAZONS3_ACCESS_KEY = "AKIAIEVPFHBUAI5DBBJA";//s3 access_key_id
+    /*public static final String AMAZONS3_ACCESS_KEY = "AKIAIEVPFHBUAI5DBBJA";//s3 access_key_id
     public static final String AMAZONS3_SECRET_KEY = "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";//s3 secret_key
     public static final String AMAZONS3_BUCKET_NAME = "blueduck-app-image";//s3 bucket_name
-    public static final String AMAZONS3_IMAGE_PATH_PREFIX = "https://s3.us-east-2.amazonaws.com/blueduck-app-image/";//s3 image_prefix
+    public static final String AMAZONS3_IMAGE_PATH_PREFIX = "https://s3.us-east-2.amazonaws.com/blueduck-app-image/";//s3 image_prefix*/
 
     /** stripe **/
     public static final String STRIPE_TEST = "pk_test_hf1BQggZKCTgWqwT4aspB2Ne";

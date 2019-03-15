@@ -51,10 +51,11 @@ public class MainParameter {
      * @param targetLng
      * @return
      */
-    public static Map<String,String> getBikeParameter(double curLat, double curLng, double targetLat, double targetLng){
+    public static Map<String,String> getBikeParameter(String token, double curLat, double curLng, double targetLat, double targetLng){
         Map<String, String> map = new HashMap<>();
         map.put("industryType", CommonSharedValues.industryType);
         map.put("requestType", "30001");
+        map.put("token", token); //TODO: added by Garrett
         map.put("cur_lat",curLat+"");
         map.put("cur_lng",curLng+"");
         map.put("lat", targetLat + "");

@@ -245,6 +245,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
      * @param headUrl
      */
     private void showHeadImg(String headUrl){
+        headUrl = "https://s3.us-east-2.amazonaws.com/blueduck-static/resources/avatar1.jpg";
         if (!TextUtils.isEmpty(headUrl)) {
             menuHead.setVisibility(View.VISIBLE);
             Glide.with(getApplicationContext())
@@ -640,7 +641,8 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
      * @param targetLng
      */
     private void getBike(double curLat, double curLng, double targetLat, double targetLng){
-        mainService.getBike(curLat,curLng,targetLat,targetLng,3);
+        String token = sp.getString(CommonSharedValues.SP_KEY_TOKEN,""); //TODO: fixed by Garrett
+        mainService.getBike(token, curLat,curLng,targetLat,targetLng,3);
     }
 
     /**

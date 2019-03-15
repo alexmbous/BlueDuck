@@ -112,9 +112,9 @@ public class MainService extends BaseService {
      * @param targetLng
      * @param flag
      */
-    public void getBike(double curLat, double curLng, double targetLat, double targetLng, final int flag){
+    public void getBike(String token, double curLat, double curLng, double targetLat, double targetLng, final int flag){
         RetrofitHttp.getRetrofit(0).create(MainApi.class)
-                .getBike(MainParameter.getBikeParameter(curLat,curLng,targetLat,targetLng))
+                .getBike(MainParameter.getBikeParameter(token, curLat,curLng,targetLat,targetLng))
                 .enqueue(new Callback<JSONObject>() {
                     @Override
                     public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
