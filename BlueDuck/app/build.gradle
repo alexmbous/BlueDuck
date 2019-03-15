@@ -6,7 +6,7 @@ android {
         applicationId "com.blueduckapp.blueduck"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 20006
+        versionCode 20007
         versionName "2.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
@@ -32,7 +32,7 @@ android {
     buildTypes {
         def IS_LOG = "IS_LOG"
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "boolean", IS_LOG, "false"
         }
