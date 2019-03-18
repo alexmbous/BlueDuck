@@ -398,7 +398,7 @@ public class UnLockingActivity extends BaseScooterServiceActivity implements Req
                 }
             }else if (code == 30010){//正在解锁 Unlocking
                 count += 1;
-                if (count > 60){
+                if (count > 30){
                     showDialog(getResources().getString(R.string.unlock_time_out));
                 }else{
                     if (!isPause)handler.sendEmptyMessageDelayed(0, 1000);

@@ -44,7 +44,7 @@
     <string name="enter_password_hint">Enter Password</string>
     <string name="log_in">Log In</string>
     <string name="personal_information_title">Personal Information</string>
-    <string name="personal_information_description">This in formation is to lorem ipsum dolor sit amet,consectetur adipiscing elit.</string>
+    <string name="personal_information_description">Complete the fields below to create an account.</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="phone">Phone</string>
