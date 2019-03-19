@@ -196,7 +196,7 @@ public class EnterCardActivity extends BaseActivity implements RequestCallBack,T
             return;
         }
         try {
-            Stripe stripe = new Stripe(this, CommonSharedValues.STRIPE_TEST);
+            Stripe stripe = new Stripe(this, CommonSharedValues.STRIPE_LIVE);
             stripe.createToken(card, new TokenCallback() {
                 @Override
                 public void onError(Exception error) {

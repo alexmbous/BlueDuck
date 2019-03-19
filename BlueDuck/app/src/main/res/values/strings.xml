@@ -270,5 +270,6 @@
     <string name="password_length_hint">Password must be at least 8 characters long</string>
     <string name="unlike">Passwords do not match</string>
     <string name="operation_failed_please_try_again">Operation failed please try again!</string>
+    <string name="password_error">Please enter a valid Password</string>
 
 </resources>

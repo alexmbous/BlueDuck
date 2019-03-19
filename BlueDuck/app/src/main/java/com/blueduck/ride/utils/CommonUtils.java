@@ -272,6 +272,17 @@ public class CommonUtils {
     }
 
     /**
+     * Determines whether the string is the correct password
+     * 判断字符串是否为正确密码
+     * @param str
+     * @return
+     */
+    public static boolean isPassword(String str){
+        boolean isPass = str.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,18}$");
+        return isPass;
+    }
+
+    /**
      * Network request exception handling
      * 网络请求异常处理
      * @param context

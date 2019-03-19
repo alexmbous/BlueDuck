@@ -18,6 +18,7 @@ import com.blueduck.ride.login.activity.PasswordActivity;
 import com.blueduck.ride.personal.service.PersonalService;
 import com.blueduck.ride.utils.BroadCastValues;
 import com.blueduck.ride.utils.CommonSharedValues;
+import com.blueduck.ride.utils.CommonUtils;
 import com.blueduck.ride.utils.RequestCallBack;
 
 public class ResetPasswordActivity extends BaseActivity implements RequestCallBack {
@@ -91,8 +92,8 @@ public class ResetPasswordActivity extends BaseActivity implements RequestCallBa
 
     private void saveBottom(){
         checkData();
-        if (newPas.length() < 8 || confirmPas.length() < 8){
-            Toast.makeText(this,getString(R.string.password_length_hint),Toast.LENGTH_SHORT).show();
+        if (!CommonUtils.isPassword(newPas) || !CommonUtils.isPassword(confirmPas)){
+            Toast.makeText(this,getString(R.string.password_error),Toast.LENGTH_SHORT).show();
         }else if (!newPas.equals(confirmPas)){
             Toast.makeText(this,getString(R.string.unlike),Toast.LENGTH_SHORT).show();
         }else{
