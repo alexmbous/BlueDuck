@@ -161,8 +161,8 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
         checkData();
         if (!CommonUtils.isNumber(phone)){
             Toast.makeText(this,getString(R.string.phone_error),Toast.LENGTH_SHORT).show();
-        }else if (password.length() < 8){
-            Toast.makeText(this,getString(R.string.password_length_hint),Toast.LENGTH_SHORT).show();
+        }else if (!CommonUtils.isPassword(password)){
+            Toast.makeText(this,getString(R.string.password_error),Toast.LENGTH_SHORT).show();
         }else{
             getEmailCode();
         }
