@@ -116,7 +116,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
+        
+        <!-- for crashalytics -->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1f82521378b09f1654a4ff1f10793960cca64c04" />
     </application>
 
 </manifest>

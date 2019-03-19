@@ -5,6 +5,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 
 public class MyApplication extends Application{
@@ -14,6 +16,7 @@ public class MyApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         isUpdateVersions = true;
         //To make the version judgment, the SDK is greater than 26 to create a notification channel, otherwise the low version will crash.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){//要做版本判断，SDK大于26就创建通知渠道，不然低版本会崩溃
