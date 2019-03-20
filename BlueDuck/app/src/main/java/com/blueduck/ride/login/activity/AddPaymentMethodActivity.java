@@ -104,8 +104,12 @@ public class AddPaymentMethodActivity extends BaseActivity {
             }else if (year.length() == 4){
                 year = year.substring(2,year.length());
             }
-            skipEnter(number,scanResult.expiryMonth+""+year,
-                    scanResult.cvv,scanResult.cardholderName);
+            if (scanResult.isExpiryValid()) {
+                skipEnter(number, scanResult.expiryMonth + "" + year,
+                        scanResult.cvv, scanResult.cardholderName);
+            }else{
+                skipEnter(number, "", scanResult.cvv, scanResult.cardholderName);
+            }
         } else {
             LogUtils.i(TAG, "onActivityResult: Scan was canceled.");
         }

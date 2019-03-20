@@ -271,5 +271,6 @@
     <string name="unlike">Passwords do not match</string>
     <string name="operation_failed_please_try_again">Operation failed please try again!</string>
     <string name="password_error">Please enter a valid Password</string>
+    <string name="age_error">Must be at least 18 years of age</string>
 
 </resources>

@@ -53,6 +53,7 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
 
     private Calendar ca;
     private int mYear,mMonth,mDay,maxDay;
+    private boolean isAccordWith = false;
 
     @Override
     protected int setLayoutViewId() {
@@ -137,6 +138,7 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
         new DateDialog(this, new DateDialog.ConfirmBtn() {
             @Override
             public void confirm(int year, int month, int day) {
+                isAccordWith = ((mYear - year) >= 18);
                 dateOfBirthEt.setText((month < 10 ? ("0"+month) : month)+"/"+(day < 10 ? ("0"+day) : day)+"/"+year);
             }
         },mYear,mMonth,mDay,maxDay,DateDialog.Choose_birthday,0);
@@ -161,8 +163,10 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
         checkData();
         if (!CommonUtils.isNumber(phone)){
             Toast.makeText(this,getString(R.string.phone_error),Toast.LENGTH_SHORT).show();
-        }else if (!CommonUtils.isPassword(password)){
-            Toast.makeText(this,getString(R.string.password_error),Toast.LENGTH_SHORT).show();
+        }else if (!CommonUtils.isPassword(password)) {
+            Toast.makeText(this, getString(R.string.password_error), Toast.LENGTH_SHORT).show();
+        }else if (!isAccordWith){
+            Toast.makeText(this, getString(R.string.age_error), Toast.LENGTH_SHORT).show();
         }else{
             getEmailCode();
         }
