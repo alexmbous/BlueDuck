@@ -267,9 +267,10 @@
     <string name="email_error">Please enter the correct email address</string>
     <string name="phone_error">Please enter the correct phone number</string>
     <string name="register_error">Please enter the correct phone number or email address</string>
-    <string name="password_length_hint">Password must be at least 8 characters long</string>
+    <string name="password_length_hint">Password must include letter(s) and number(s)</string>
     <string name="unlike">Passwords do not match</string>
     <string name="operation_failed_please_try_again">Operation failed please try again!</string>
     <string name="password_error">Please enter a valid Password</string>
+    <string name="age_error">Must be at least 18 years of age</string>
 
 </resources>

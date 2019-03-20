@@ -61,6 +61,7 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
     private String firstName,lastName,email,phone,birthday,password,imagePath;
     private LoginService loginService;
     private MainService mainService;
+    private boolean isAccordWith = false;
 
     private ChangeBroad changeBroad;
 
@@ -175,8 +176,10 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         birthday = birthEt.getText().toString().trim();
         password = passwordEt.getText().toString().trim();
         if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)
-                || TextUtils.isEmpty(birthday) || TextUtils.isEmpty(password)){
-            Toast.makeText(this,getString(R.string.not_null),Toast.LENGTH_SHORT).show();
+                || TextUtils.isEmpty(birthday) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, getString(R.string.not_null), Toast.LENGTH_SHORT).show();
+        }else if (!isAccordWith){
+            Toast.makeText(this, getString(R.string.age_error), Toast.LENGTH_SHORT).show();
         }else{
             if (!TextUtils.isEmpty(imagePath)){
                 //loginService.amazonS3Upload(imagePath,5);
@@ -191,6 +194,7 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         new DateDialog(this, new DateDialog.ConfirmBtn() {
             @Override
             public void confirm(int year, int month, int day) {
+                isAccordWith = ((mYear - year) >= 18);
                 birthEt.setText((month < 10 ? ("0"+month) : month)+"/"+(day < 10 ? ("0"+day) : day)+"/"+year);
             }
         },mYear,mMonth,mDay,maxDay,DateDialog.Choose_birthday,0);
@@ -344,7 +348,11 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         }
         emailEt.setText(bean.getUserInfo().getEmail());
         phoneEt.setText(bean.getUserInfo().getUserVo().getPhone());
-        birthEt.setText(bean.getUserInfo().getBirthday());
+        String birthday = bean.getUserInfo().getBirthday();
+        if (!TextUtils.isEmpty(birthday)){
+            birthEt.setText(birthday);
+            isAccordWith = ((mYear - Integer.parseInt(birthday.substring(birthday.length() - 4))) >= 18);
+        }
         String password = sp.getString(CommonSharedValues.SP_KEY_PASSWORD, "");
         if (!TextUtils.isEmpty(password)){
             passwordEt.setText(password);
