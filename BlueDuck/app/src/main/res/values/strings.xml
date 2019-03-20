@@ -17,21 +17,21 @@
         <item>Find Your Duck</item>
         <item>Scan Your Duck</item>
         <item>How to Stand</item>
-        <item>Give it a Break</item>
         <item>Give it Some Gas</item>
+        <item>Give it a Break</item>
         <item>Fly Wild!</item>
         <item>How to Land</item>
         <item>Something Wrong?</item>
     </string-array>
     <string-array name="page_top_two_array">
-        <item>It\'s required by law</item>
-        <item>Locate nearby Ducks</item>
-        <item>Unlock a Duck to start riding</item>
-        <item>Put your dominant foot forward for balance</item>
-        <item>Gradually squeeze to safely reduce your speed</item>
-        <item>Press down on the toggle to increase your speed</item>
+        <item>Follow your local laws and fly safely!</item>
+        <item>Locate the nearest Duck to you</item>
+        <item>Register the Duck you spotted</item>
+        <item>Put your dominant foot forward to balance</item>
+        <item>Kick off to start and press down on the toggle to increase your speed</item>
+        <item>Gradually squeeze reduce speed safely</item>
         <item>Soar to your destination</item>
-        <item>Land out of harm\'s way at your favorite spots for other flock members to find</item>
+        <item>Land out of harm\'s way at your favorite spots for other Flock members to find</item>
         <item>Report your Duck through the app menu so we can take care of it</item>
     </string-array>
     <string name="blank">&#160;</string>
@@ -40,7 +40,7 @@
     <string name="login_description_text">Enter your email to start enjoying Blue Duck!</string>
     <string name="enter_email_hint">Enter Email</string>
     <string name="start_riding">Start Riding</string>
-    <string name="password_description_text">Enter Your Password to Log In</string>
+    <string name="password_description_text">Enter your password to log in</string>
     <string name="enter_password_hint">Enter Password</string>
     <string name="log_in">Log In</string>
     <string name="personal_information_title">Personal Information</string>
@@ -167,7 +167,7 @@
     <string name="battery">Battery</string>
     <string name="end">End</string>
     <string name="how_was_your_ride">How was your ride?</string>
-    <string name="dont_rate">Dont Rate</string>
+    <string name="dont_rate">Not Now</string>
     <string name="report_scooter">Report Duck</string>
     <string name="border_dialog_title">NO PARKING ZONE</string>
     <string name="border_description_text">Uh oh. You\'ve parked outside of the service area, which means your ride is still going. To avoid fees, tap below to unlock the Duck and park it in a service area.</string>
@@ -231,7 +231,7 @@
     <string name="in_the_location">Please grant Blue Duck GPS access and try again.</string>
     <string name="bicycle_is_in_use">This Duck is in use. Please try another one.</string>
     <string name="bike_number_not_exist">Please make sure you are near the Duck</string>
-    <string name="you_have_been_stopped_riding_a_duck">You ride has stopped!</string>
+    <string name="you_have_been_stopped_riding_a_duck">Your ride has stopped!</string>
     <string name="your_account_has_been_frozen">Your account has been frozen!</string>
     <string name="bicycle_has_been_damaged">This Duck is under maintenance</string>
     <string name="bicycle_has_been_scrapped">Duck has been scrapped</string>
