@@ -18,7 +18,7 @@
         <item>Scan Your Duck</item>
         <item>How to Stand</item>
         <item>Give it Some Gas</item>
-        <item>Give it a Break</item>
+        <item>Give it a Brake</item>
         <item>Fly Wild!</item>
         <item>How to Land</item>
         <item>Something Wrong?</item>
@@ -29,7 +29,7 @@
         <item>Register the Duck you spotted</item>
         <item>Put your dominant foot forward to balance</item>
         <item>Kick off to start and press down on the toggle to increase your speed</item>
-        <item>Gradually squeeze reduce speed safely</item>
+        <item>Gradually squeeze to reduce speed safely</item>
         <item>Soar to your destination</item>
         <item>Land out of harm\'s way at your favorite spots for other Flock members to find</item>
         <item>Report your Duck through the app menu so we can take care of it</item>
@@ -72,7 +72,7 @@
     <string name="i_agree_text">By checking this box you agree to our terms of use.</string>
     <string name="scan_driver_license_text">Scan Your Drivers License</string>
     <string name="scan_driver_license_description_text">This in formation is to lorem ipsum dolor sit amet,consectetur adipiscing elit.</string>
-    <string name="do_this_later">Must be 16 and over to ride.</string>
+    <string name="do_this_later">Must be 18 and over to ride.</string>
     <string name="scan_now">Scan Now</string>
     <string name="enable_location_text">Please Enable Your Location</string>
     <string name="yes_enable">Yes, Enable</string>
@@ -95,7 +95,7 @@
         <item>How to Ride</item>
         <item>Support</item>
     </string-array>
-    <string name="how_to_ride_a_duck">How To ride a Duck</string>
+    <string name="how_to_ride_a_duck">How to ride a Duck</string>
     <string name="scan_scooter">Scan Duck</string>
     <string name="refuse_hint">Refuse will not be able to download the update!</string>
     <string name="version_update">Update Available</string>
@@ -137,9 +137,9 @@
 
     <!-- history -->
     <string name="history_title">History</string>
-    <string name="you_havent_taken_a_ride">You Haven\'t Taken a Ride</string>
+    <string name="you_havent_taken_a_ride">You Haven\'t Taken a Flight</string>
     <string name="history_description">You\ll see ride history here after your first ride.</string>
-    <string name="take_my_first_ride">Take my First Ride</string>
+    <string name="take_my_first_ride">Take My First Ride</string>
     <string name="dollar">$</string>
     <string name="scooter_number_text">Duck:</string>
     <string name="history_details_date">Date</string>
@@ -197,7 +197,7 @@
     <string name="not_camera_permission">Please open the "photo and video" access rights in "setting - > application management - > BlueDuck-> permissions"!</string>
     <string name="not_location_permission">Please open the "locate" access rights in the "Settings - > application management - > BlueDuck-> permissions"!</string>
     <string name="scan_driver_license">Scan Driver License</string>
-    <string name="scan_driver_license_description">Lorem ipsum dolor sit amet,consectetur adipiscing elit.</string>
+    <string name="scan_driver_license_description">Place your</string>
     <string name="scooter_id">Duck ID</string>
 
     <!--dialog-->
@@ -227,7 +227,7 @@
     <string name="invalid_code">Invalid verification code</string>
     <string name="please_enter_complete">Please fill out all fields</string>
     <string name="please_check_user_agreement">Please check user agreement</string>
-    <string name="bike_numbers_wrong">Scooter ID invalid</string>
+    <string name="bike_numbers_wrong">Duck ID invalid</string>
     <string name="in_the_location">Please grant Blue Duck GPS access and try again.</string>
     <string name="bicycle_is_in_use">This Duck is in use. Please try another one.</string>
     <string name="bike_number_not_exist">Please make sure you are near the Duck</string>
