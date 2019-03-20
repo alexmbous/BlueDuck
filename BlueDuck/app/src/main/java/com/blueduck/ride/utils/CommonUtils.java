@@ -278,7 +278,7 @@ public class CommonUtils {
      * @return
      */
     public static boolean isPassword(String str){
-        boolean isPass = str.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,18}$");
+        boolean isPass = str.matches("^(?=.*[a-zA-Z])(?=.*[0-9]).{8,18}$");
         return isPass;
     }
 
