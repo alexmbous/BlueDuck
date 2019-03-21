@@ -91,7 +91,7 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
         baseTitleLayout.setVisibility(View.VISIBLE);
         baseTitleText.setText(getString(R.string.personal_information_title));
         imageHead = (ImageView) findViewById(R.id.image_head);
-        imageHead.setOnClickListener(this);
+        //imageHead.setOnClickListener(this);
         nameEt = (EditText) findViewById(R.id.name_edit);
         emailEt = (EditText) findViewById(R.id.email_edit);
         phoneEt = (EditText) findViewById(R.id.phone_edit);
@@ -110,6 +110,7 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
         dateOfBirthEt.addTextChangedListener(myTextWatcher);
         emailEt.setText(email);
         showHidePasswordImageButton.setOnClickListener(this);
+        showHead();
     }
 
     private class MyTextWatcher implements TextWatcher {
@@ -310,6 +311,7 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
      * 显示圆形图片
      */
     private void showHead(){
+        imagePath = "https://s3.us-east-2.amazonaws.com/blueduck-static/resources/avatar1.jpg";
         Glide.with(getApplicationContext())
                 .load(imagePath)
                 .transform(new GlideCircleTransform(getApplicationContext()))
