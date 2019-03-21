@@ -22,6 +22,7 @@
     <color name="stop_area_color">#281E80C1</color>
     <color name="seek_bar_bg">#ECF3F6</color>
     <color name="menu_head_bg">#F8F8F8</color>
+    <color name="color_sky_blue">#F6FCFC</color>
 
     <!-- 二维码扫描 QR code scanning -->
     <color name="viewfinder_mask">#60000000</color>
