@@ -38,9 +38,9 @@ public class RetrofitHttp {
     }
 
     public static final OkHttpClient client = new OkHttpClient.Builder().
-            connectTimeout(60, TimeUnit.SECONDS).
-            readTimeout(60, TimeUnit.SECONDS).
-            writeTimeout(60, TimeUnit.SECONDS).build();
+            connectTimeout(30, TimeUnit.SECONDS).
+            readTimeout(30, TimeUnit.SECONDS).
+            writeTimeout(30, TimeUnit.SECONDS).build();
 
     private static Converter.Factory createFactory(int converterType){
         if (converterType == 0){
