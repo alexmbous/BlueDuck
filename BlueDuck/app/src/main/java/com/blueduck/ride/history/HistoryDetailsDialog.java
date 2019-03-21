@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.DecimalFormat;
+
 /**
  * 骑行历史记录详情对话框
  * Cycling history details dialog box
@@ -95,7 +97,9 @@ public class HistoryDetailsDialog extends Dialog implements View.OnClickListener
         rideTime.setText(Utils.hourMinuteFormat(sumTime));
         if (historyBean.getAmount() != null) {
             double amount = Double.parseDouble(historyBean.getAmount());
-            cost.setText(mContext.getString(R.string.dollar) + amount);
+            DecimalFormat twoPlaces = new DecimalFormat("0.00");
+            String fixedAmount = twoPlaces.format(amount);
+            cost.setText(mContext.getString(R.string.dollar) + fixedAmount);
         }else{
             cost.setText(mContext.getString(R.string.dollar) + 0.0);
         }
