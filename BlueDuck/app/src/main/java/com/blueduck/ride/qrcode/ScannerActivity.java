@@ -161,7 +161,7 @@ public class ScannerActivity extends BaseActivity implements ZBarScannerView.Res
         System.out.println("resultType: " + resultType);
         if (!TextUtils.isEmpty(resultString) && !TextUtils.isEmpty(resultType)){
             //Type: QR code: "QRCODE" Barcode: "EAN13"
-            if ("QRCODE".equals(resultType) || "EAN13".equals(resultType) || "CODE128".equals(resultType)){//类型：二维码："QRCODE"  条形码："EAN13"
+            if ("QRCODE".equals(resultType) || "EAN13".equals(resultType)){//类型：二维码："QRCODE"  条形码："EAN13"
                 scanSuccessMusic();
                 if (resultString.contains("=")) {
                     int index = resultString.lastIndexOf("=");
