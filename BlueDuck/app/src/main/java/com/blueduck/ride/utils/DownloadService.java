@@ -226,8 +226,8 @@ public class DownloadService extends Service{
 //        Intent intent = new Intent(this, MainActivity.class);
 //        PendingIntent pi = PendingIntent.getActivity(this,0,intent,0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"use");
-        builder.setSmallIcon(R.mipmap.app_icon);
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.app_icon));
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
 //        builder.setContentIntent(pi);
         builder.setContentTitle(title);
         if (progress >= 0){

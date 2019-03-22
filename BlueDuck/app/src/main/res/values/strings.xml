@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BlueDuck</string>
+    <string name="app_name">Blue Duck</string>
     <!-- login register -->
     <array name="logo_page_array">
         <item>@drawable/page1</item>
