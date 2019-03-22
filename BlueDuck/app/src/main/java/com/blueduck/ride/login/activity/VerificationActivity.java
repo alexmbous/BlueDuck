@@ -71,7 +71,8 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
         accountType = getIntent().getIntExtra("accountType",0);
         invalidMinute = getIntent().getIntExtra("invalidMinute",0);
 
-        imagePath = getIntent().getStringExtra("imagePath");
+        //imagePath = getIntent().getStringExtra("imagePath");
+        imagePath = null;
         name = getIntent().getStringExtra("name");
         phone = getIntent().getStringExtra("phone");
         password = getIntent().getStringExtra("password");
