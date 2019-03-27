@@ -136,4 +136,15 @@ public class MyItem implements ClusterItem {
     public void setPowerPercent(int powerPercent) {
         this.powerPercent = powerPercent;
     }
+
+    /* unimplemented - Garrett */
+    @Override
+    public String getTitle() {
+        return null;
+    }
+
+    @Override
+    public String getSnippet() {
+        return null;
+    }
 }
