@@ -100,7 +100,7 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         findViewById(R.id.my_account_left_layout).setOnClickListener(this);
         findViewById(R.id.my_account_right_layout).setOnClickListener(this);
         headImg = (ImageView) findViewById(R.id.head_image);
-        headImg.setOnClickListener(this);
+        //headImg.setOnClickListener(this);
         firstNameEt = (EditText) findViewById(R.id.first_name_edit);
         lastNameEt = (EditText) findViewById(R.id.last_name_edit);
         emailEt = (TextView) findViewById(R.id.my_account_email_edit);
@@ -111,6 +111,7 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
         findViewById(R.id.change_password_text).setOnClickListener(this);
         findViewById(R.id.log_out_text).setOnClickListener(this);
         getUserInfo();
+        showHead("");
     }
 
     @Override
@@ -181,7 +182,8 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
             Toast.makeText(this, getString(R.string.age_error), Toast.LENGTH_SHORT).show();
         }else{
             if (!TextUtils.isEmpty(imagePath)){
-                loginService.amazonS3Upload(imagePath,5);
+                //loginService.amazonS3Upload(imagePath,5);
+                //TODO: handle avatar
             }else{
                 uploadUserInfo();
             }
@@ -277,6 +279,7 @@ public class MyAccountActivity extends BaseActivity implements RequestCallBack,S
      * 显示圆形图片
      */
     private void showHead(String imagePath){
+        imagePath = "https://s3.us-east-2.amazonaws.com/blueduck-static/resources/avatar1.jpg";
         Glide.with(getApplicationContext())
                 .load(imagePath)
                 .transform(new GlideCircleTransform(getApplicationContext()))

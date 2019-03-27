@@ -148,7 +148,7 @@ public class BaseMapActivity extends BaseScooterServiceActivity implements Drawe
         LogUtils.i(TAG,"onMapReady:地图初始化成功");
         mMap.setOnCameraIdleListener(this);//地图移动监听 Map mobile monitoring
         mMap.setOnMarkerClickListener(this);//地图标记点击监听 Map marker click listener
-        LatLng sydney = new LatLng(-98.4764935, 29.4453365);
+        LatLng sydney = new LatLng(29.425950, -98.486147);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, DEFAULT_ZOOM));
         mMap.setLocationSource(this);
         mMap.setOnInfoWindowClickListener(this);//弹出信息窗口监听 Pop-up message window monitoring
@@ -230,8 +230,8 @@ public class BaseMapActivity extends BaseScooterServiceActivity implements Drawe
         mLocationClient.startLocation();//启动定位 Start position
     }
 
-    protected double curLat = -98.4764935;
-    protected double curLng = 29.4453365;
+    protected double curLat;
+    protected double curLng;
     protected String curAddress;
     private boolean isFirstLocation = true;
     @Override

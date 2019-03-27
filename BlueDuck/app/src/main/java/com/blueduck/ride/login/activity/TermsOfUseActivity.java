@@ -102,7 +102,8 @@ public class TermsOfUseActivity extends BaseActivity {
     }
 
     private void agreeBtn(){
-        startActivity(new Intent(this,ScanDriverLicenseActivity.class));
+        startActivity(new Intent(this,EnableLocationActivity.class));
+        //startActivity(new Intent(this,ScanDriverLicenseActivity.class)); //TODO: add this in a future update
     }
 
     private void checkAgreeImg(){

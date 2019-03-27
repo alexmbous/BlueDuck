@@ -158,6 +158,7 @@ public class ScannerActivity extends BaseActivity implements ZBarScannerView.Res
         LogUtils.i(TAG,"扫描结果回调 ===: "+"Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
         String resultString = rawResult.getContents();
         String resultType = rawResult.getBarcodeFormat().getName();
+        System.out.println("resultType: " + resultType);
         if (!TextUtils.isEmpty(resultString) && !TextUtils.isEmpty(resultType)){
             //Type: QR code: "QRCODE" Barcode: "EAN13"
             if ("QRCODE".equals(resultType) || "EAN13".equals(resultType)){//类型：二维码："QRCODE"  条形码："EAN13"

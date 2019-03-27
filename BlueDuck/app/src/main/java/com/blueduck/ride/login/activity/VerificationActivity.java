@@ -71,7 +71,8 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
         accountType = getIntent().getIntExtra("accountType",0);
         invalidMinute = getIntent().getIntExtra("invalidMinute",0);
 
-        imagePath = getIntent().getStringExtra("imagePath");
+        //imagePath = getIntent().getStringExtra("imagePath");
+        imagePath = null;
         name = getIntent().getStringExtra("name");
         phone = getIntent().getStringExtra("phone");
         password = getIntent().getStringExtra("password");
@@ -210,7 +211,8 @@ public class VerificationActivity extends BaseActivity implements GridPasswordVi
     private void handlerRegister(LoginBean loginBean){
         CommonUtils.saveLoginInfo(sp,loginBean,account,regions,accountType);
         if (!TextUtils.isEmpty(imagePath)){
-            loginService.amazonS3Upload(imagePath,4);
+            //loginService.amazonS3Upload(imagePath,4);
+            //TODO: handle avatar
         }else{
             uploadUserInfo();
         }

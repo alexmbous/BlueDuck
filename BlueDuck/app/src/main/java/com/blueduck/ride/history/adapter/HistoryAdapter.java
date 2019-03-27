@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.blueduck.ride.R;
 import com.blueduck.ride.history.Utils;
 import com.blueduck.ride.history.bean.HistoryBean;
+import com.blueduck.ride.utils.CurrencyUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -69,7 +70,7 @@ public class HistoryAdapter extends BaseAdapter {
         viewHolder.time.setText(Utils.hourMinuteFormat(historyBean.getStartStamp()));
         if (historyBean.getAmount() != null) {
             double amount = Double.parseDouble(historyBean.getAmount());
-            viewHolder.amount.setText(mContext.getString(R.string.dollar) + amount);
+            viewHolder.amount.setText(mContext.getString(R.string.dollar) + CurrencyUtil.convertToTwoDecimalPlaces(amount));
         }else{
             viewHolder.amount.setText(mContext.getString(R.string.dollar) + 0.0);
         }

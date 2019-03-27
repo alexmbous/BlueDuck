@@ -15,10 +15,13 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -46,10 +49,12 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
     private ImageView imageHead;
     private EditText nameEt,emailEt,phoneEt,passwordEt,dateOfBirthEt;
     private Button createAccountBtn;
+    private ImageButton showHidePasswordImageButton;
     private String imagePath,name,email,phone,password,birthday;
     private double lat,lng;
     private LoginService loginService;
     private FinishBroad finishBroad;
+    private boolean isShowPasswordChecked = false;
 
     private Calendar ca;
     private int mYear,mMonth,mDay,maxDay;
@@ -86,7 +91,7 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
         baseTitleLayout.setVisibility(View.VISIBLE);
         baseTitleText.setText(getString(R.string.personal_information_title));
         imageHead = (ImageView) findViewById(R.id.image_head);
-        imageHead.setOnClickListener(this);
+        //imageHead.setOnClickListener(this);
         nameEt = (EditText) findViewById(R.id.name_edit);
         emailEt = (EditText) findViewById(R.id.email_edit);
         phoneEt = (EditText) findViewById(R.id.phone_edit);
@@ -94,6 +99,7 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
         dateOfBirthEt = (EditText) findViewById(R.id.date_of_birth_edit);
         dateOfBirthEt.setOnClickListener(this);
         createAccountBtn = (Button) findViewById(R.id.create_account_btn);
+        showHidePasswordImageButton = (ImageButton) findViewById(R.id.show_hide_password_image_button);
         createAccountBtn.setOnClickListener(this);
         createAccountBtn.setEnabled(false);
         MyTextWatcher myTextWatcher = new MyTextWatcher();
@@ -103,6 +109,8 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
         passwordEt.addTextChangedListener(myTextWatcher);
         dateOfBirthEt.addTextChangedListener(myTextWatcher);
         emailEt.setText(email);
+        showHidePasswordImageButton.setOnClickListener(this);
+        showHead();
     }
 
     private class MyTextWatcher implements TextWatcher {
@@ -131,7 +139,24 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
             case R.id.create_account_btn:
                 createAccountBottom();
                 break;
+            case R.id.show_hide_password_image_button:
+                showHidePassword(passwordEt, isShowPasswordChecked);
+                isShowPasswordChecked = !isShowPasswordChecked;
+                break;
         }
+    }
+
+    private void showHidePassword(EditText editText, boolean isShown) {
+        System.out.println("isShown: " + isShown);
+        if (!isShown) {
+            // show password
+            editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            // hide password
+            editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+        // select end of edittext
+        editText.setSelection(editText.getText().length());
     }
 
     private void selectBirthday(){
@@ -286,6 +311,7 @@ public class PersonalInformationActivity extends BaseActivity implements SelectP
      * 显示圆形图片
      */
     private void showHead(){
+        imagePath = "https://s3.us-east-2.amazonaws.com/blueduck-static/resources/avatar1.jpg";
         Glide.with(getApplicationContext())
                 .load(imagePath)
                 .transform(new GlideCircleTransform(getApplicationContext()))

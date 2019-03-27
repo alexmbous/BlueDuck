@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BlueDuck</string>
+    <string name="app_name">Blue Duck</string>
     <!-- login register -->
     <array name="logo_page_array">
         <item>@drawable/page1</item>
@@ -17,21 +17,21 @@
         <item>Find Your Duck</item>
         <item>Scan Your Duck</item>
         <item>How to Stand</item>
-        <item>Give it a Break</item>
         <item>Give it Some Gas</item>
+        <item>Give it a Brake</item>
         <item>Fly Wild!</item>
         <item>How to Land</item>
         <item>Something Wrong?</item>
     </string-array>
     <string-array name="page_top_two_array">
-        <item>It\'s required by law</item>
+        <item>Follow your local laws and fly safely!</item>
         <item>Locate the nearest Duck to you</item>
         <item>Register the Duck you spotted</item>
         <item>Put your dominant foot forward to balance</item>
+        <item>Kick off to start and press down on the toggle to increase your speed</item>
         <item>Gradually squeeze to reduce speed safely</item>
-        <item>Press down on the toggle to increase your speed</item>
         <item>Soar to your destination</item>
-        <item>Land out of harm\'s way at your favorite spots for other flock members to find</item>
+        <item>Land out of harm\'s way at your favorite spots for other Flock members to find</item>
         <item>Report your Duck through the app menu so we can take care of it</item>
     </string-array>
     <string name="blank">&#160;</string>
@@ -40,11 +40,11 @@
     <string name="login_description_text">Enter your email to start enjoying Blue Duck!</string>
     <string name="enter_email_hint">Enter Email</string>
     <string name="start_riding">Start Riding</string>
-    <string name="password_description_text">Enter Your Password To Log In</string>
+    <string name="password_description_text">Enter your password to log in</string>
     <string name="enter_password_hint">Enter Password</string>
     <string name="log_in">Log In</string>
     <string name="personal_information_title">Personal Information</string>
-    <string name="personal_information_description">This in formation is to lorem ipsum dolor sit amet,consectetur adipiscing elit.</string>
+    <string name="personal_information_description">Complete the fields below to create an account.</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="phone">Phone</string>
@@ -52,9 +52,9 @@
     <string name="date_of_birth">Date of Birth</string>
     <string name="create_account">Create Account</string>
     <string name="account_does_not_exist">Account does not exist</string>
-    <string name="the_account_already_exists">The account already exists.</string>
+    <string name="the_account_already_exists">This account already exists.</string>
     <string name="incorrect_username_or_password">Incorrect username or password</string>
-    <string name="verification_top_description">We have sent you a verification code to your email.Please insert the code below</string>
+    <string name="verification_top_description">We sent a verification code to your email. Please insert the code below:</string>
     <string name="resending_code">Resending verification code in</string>
     <string name="resend">Resend</string>
     <string name="verification">Verification</string>
@@ -69,14 +69,14 @@
     <string name="add_card">Add Card</string>
     <string name="terms_of_use">Terms of use</string>
     <string name="i_agree">I Agree</string>
-    <string name="i_agree_text">By checking this box you agree to the terms of use.</string>
-    <string name="scan_driver_license_text">Scan Your Driver\'s License</string>
+    <string name="i_agree_text">By checking this box you agree to our terms of use.</string>
+    <string name="scan_driver_license_text">Scan Your Drivers License</string>
     <string name="scan_driver_license_description_text">This in formation is to lorem ipsum dolor sit amet,consectetur adipiscing elit.</string>
-    <string name="do_this_later">Must be 16 and over to ride.</string>
+    <string name="do_this_later">Must be 18 and over to ride.</string>
     <string name="scan_now">Scan Now</string>
     <string name="enable_location_text">Please Enable Your Location</string>
-    <string name="yes_enable">Yes,Enable</string>
-    <string name="forget_password">Forget Password</string>
+    <string name="yes_enable">Yes, Enable</string>
+    <string name="forget_password">Forgot Password</string>
     <string name="countries_and_regions">Countries and Regions</string>
     <string name="select_regions_text">Please select countries and regions</string>
 
@@ -95,18 +95,18 @@
         <item>How to Ride</item>
         <item>Support</item>
     </string-array>
-    <string name="how_to_ride_a_duck">How To ride a Duck</string>
+    <string name="how_to_ride_a_duck">How to ride a Duck</string>
     <string name="scan_scooter">Scan Duck</string>
     <string name="refuse_hint">Refuse will not be able to download the update!</string>
     <string name="version_update">Update Available</string>
-    <string name="version_update_content_text">There is a new update for the app.Please download to make the process easier and to keep unlocking new adventures.</string>
-    <string name="update_now">Update BlueDuck</string>
-    <string name="return_desktop">Press again to exit the program</string>
+    <string name="version_update_content_text">There is a new update for the app. Please download to make the process easier and to keep unlocking new adventures.</string>
+    <string name="update_now">Update Blue Duck</string>
+    <string name="return_desktop">Press again to exit the app</string>
     <string name="unlocking_title_text">Unlocking</string>
-    <string name="bluetooth_to_sweep_yards">Please turn on your bluetooth and scan the QR code to enjoy riding.</string>
+    <string name="bluetooth_to_sweep_yards">Please turn on Bluetooth and scan the QR code to start riding.</string>
     <string name="unlock_failed">Unlock failed!</string>
-    <string name="unlock_time_out">Lockout timeout, please try again!</string>
-    <string name="do_not_return">In the lock, please do not return</string>
+    <string name="unlock_time_out">Unlock timeout, please try again!</string>
+    <string name="do_not_return">Unlock pending, please do not exit.</string>
 
     <!-- my account -->
     <string name="my_account">My Account</string>
@@ -137,9 +137,9 @@
 
     <!-- history -->
     <string name="history_title">History</string>
-    <string name="you_havent_taken_a_ride">You Havent Taken a Ride</string>
-    <string name="history_description">When you take your first ride you will see the details of that ride here.</string>
-    <string name="take_my_first_ride">Take my First Ride</string>
+    <string name="you_havent_taken_a_ride">You Haven\'t Taken a Flight</string>
+    <string name="history_description">You\ll see ride history here after your first ride.</string>
+    <string name="take_my_first_ride">Take My First Ride</string>
     <string name="dollar">$</string>
     <string name="scooter_number_text">Duck:</string>
     <string name="history_details_date">Date</string>
@@ -157,21 +157,21 @@
     <string name="write_a_message">Write a Message</string>
     <string name="report_duck">Report Duck</string>
     <string name="issue_edit_hint">Scan your Duck or enter its ID</string>
-    <string name="you_have_submitted">You have submitted the fault and are waiting for the system to review!</string>
-    <string name="please_select_the_issue">Please select the issue</string>
+    <string name="you_have_submitted">Your report has been submitted and will be reviewed shortly.</string>
+    <string name="please_select_the_issue">Please select an issue</string>
     <string name="report_success_title">Your report was submitted</string>
-    <string name="report_success_content">Thank you for your submision.This helps us improve future experienses for you and other riders.</string>
+    <string name="report_success_content">Thank you for your submission.  This helps us improve your future experience.</string>
 
     <!-- ride end -->
     <string name="scooter">Duck</string>
     <string name="battery">Battery</string>
     <string name="end">End</string>
     <string name="how_was_your_ride">How was your ride?</string>
-    <string name="dont_rate">Dont Rate</string>
+    <string name="dont_rate">Not Now</string>
     <string name="report_scooter">Report Duck</string>
     <string name="border_dialog_title">NO PARKING ZONE</string>
-    <string name="border_description_text">Uh oh.You\'ve parked outside of the service area,which means your ride is still going.To avoid fees,tap below to unlock the bike and park it in the service area.</string>
-    <string name="forbid_description_text">Oops, this area is not legitimate for bike parking. Please return the bike to designated areas.</string>
+    <string name="border_description_text">Uh oh. You\'ve parked outside of the service area, which means your ride is still going. To avoid fees, tap below to unlock the Duck and park it in a service area.</string>
+    <string name="forbid_description_text">Oops, this area is not authorized for bike parking. Please return the Duck a designated area.</string>
     <string name="end_ride">End Ride</string>
     <string name="make_sure_you_are">Make sure you are</string>
     <string name="on_the_sidewalk">On the sidewalk</string>
@@ -182,7 +182,7 @@
     <string name="thanks_for_flying_with">Thanks for Flying with Blue Duck!</string>
     <string name="rate">Rate</string>
     <string name="rate_ride">Rate Ride</string>
-    <string name="pick_from_an_issue">Pick from an issue</string>
+    <string name="pick_from_an_issue">Select an issue</string>
     <string name="leave_a_comment">Leave a Comment</string>
     <string name="payment_dialog_title">Payment</string>
     <string name="payment_dialog_text">Just one more step before you can start your ride.</string>
@@ -197,61 +197,61 @@
     <string name="not_camera_permission">Please open the "photo and video" access rights in "setting - > application management - > BlueDuck-> permissions"!</string>
     <string name="not_location_permission">Please open the "locate" access rights in the "Settings - > application management - > BlueDuck-> permissions"!</string>
     <string name="scan_driver_license">Scan Driver License</string>
-    <string name="scan_driver_license_description">Lorem ipsum dolor sit amet,consectetur adipiscing elit.</string>
+    <string name="scan_driver_license_description">Place your</string>
     <string name="scooter_id">Duck ID</string>
 
     <!--dialog-->
-    <string name="loading">loading...</string>
-    <string name="download_fail">download fail</string>
-    <string name="download">downloading...</string>
-    <string name="download_success">download successfully</string>
-    <string name="hint">hint</string>
-    <string name="network_message">no network</string>
-    <string name="confirm">confirm</string>
-    <string name="cancel">cancel</string>
+    <string name="loading">Loading&#8230;</string>
+    <string name="download_fail">Download fail</string>
+    <string name="download">Downloading&#8230;</string>
+    <string name="download_success">Downloaded successfully</string>
+    <string name="hint">Hint</string>
+    <string name="network_message">No network available</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
     <string name="camera">Camera</string>
     <string name="from_library">From Library</string>
     <string name="remote_login">Because your account is logged in elsewhere, you are forced to log out.</string>
-    <string name="socket_timeout_error">socket timeout error</string>
-    <string name="connect_error">connect error</string>
-    <string name="request_error_text">request error</string>
+    <string name="socket_timeout_error">Socket timeout error</string>
+    <string name="connect_error">Connection Error</string>
+    <string name="request_error_text">Request error</string>
     <string name="internet_error">Please check your internet connection</string>
-    <string name="runtime_error">runtime error</string>
+    <string name="runtime_error">Runtime error</string>
     <string name="unknown_host_please_check_network">Unable to connect the server. Please check your network.</string>
     <string name="unknown_error">Unknown error</string>
-    <string name="gps_location_hint">Please turn on the GPS location information so that you can determine the location of your bike more accurately</string>
-    <string name="rejection_hint">Rejection can cause you to use bicycle information inaccurate!</string>
+    <string name="gps_location_hint">Please enable GPS location services to locate Ducks</string>
+    <string name="rejection_hint">Without GPS location services enabled, the map may be inaccurate!</string>
     <string name="fail_to_get">Get the captcha failure</string>
-    <string name="max_message_count">You have reached the maximum number of registration. Please contact Frog for help.</string>
+    <string name="max_message_count">You have reached the maximum number of registrations. Please contact Blue Duck for help.</string>
     <string name="user_exists">The user already exists</string>
     <string name="invalid_code">Invalid verification code</string>
-    <string name="please_enter_complete">Please enter complete</string>
+    <string name="please_enter_complete">Please fill out all fields</string>
     <string name="please_check_user_agreement">Please check user agreement</string>
-    <string name="bike_numbers_wrong">Bike Numbers wrong</string>
-    <string name="in_the_location">Please grant OmniRide GPS access and try again.</string>
-    <string name="bicycle_is_in_use">This bike is in use.Please try another one.</string>
-    <string name="bike_number_not_exist">Please make sure you are closed to the bike</string>
-    <string name="you_have_been_stopped_riding_a_duck">You have been stopped riding a duck!</string>
+    <string name="bike_numbers_wrong">Duck ID invalid</string>
+    <string name="in_the_location">Please grant Blue Duck GPS access and try again.</string>
+    <string name="bicycle_is_in_use">This Duck is in use. Please try another one.</string>
+    <string name="bike_number_not_exist">Please make sure you are near the Duck</string>
+    <string name="you_have_been_stopped_riding_a_duck">Your ride has stopped!</string>
     <string name="your_account_has_been_frozen">Your account has been frozen!</string>
-    <string name="bicycle_has_been_damaged">This bike is under maintenance</string>
-    <string name="bicycle_has_been_scrapped">Bicycle has been scrapped</string>
-    <string name="bicycle_has_been_reservation">Bicycle has been reservation</string>
-    <string name="has_a_bike_of_appointment">You have already reserved a bike.</string>
-    <string name="not_through_the_certification">Please complete your profile and try again. If problem still remains, please contact the operator for help.</string>
-    <string name="not_sufficient_funds">Not enough balance. Please recharge for more rides.</string>
-    <string name="unpaid_orders">You may have an unpaid trip, please contact operator for help.</string>
-    <string name="you_have_use_other_bike">Are you using any other bicycles?</string>
+    <string name="bicycle_has_been_damaged">This Duck is under maintenance</string>
+    <string name="bicycle_has_been_scrapped">Duck has been scrapped</string>
+    <string name="bicycle_has_been_reservation">Duck has been reserved</string>
+    <string name="has_a_bike_of_appointment">You have already reserved a Duck.</string>
+    <string name="not_through_the_certification">Please complete your profile and try again. If problems persist, please contact the us for assistance.</string>
+    <string name="not_sufficient_funds">Insufficient funds. Please recharge for more rides.</string>
+    <string name="unpaid_orders">You may have an unpaid trip, please contact us for assistance.</string>
+    <string name="you_have_use_other_bike">Are you using any other Ducks?</string>
     <string name="unbound_bank_card">Please attach your credit card and start scanning.</string>
-    <string name="unlock_maximum">You have reached the maximum number of unlocked</string>
-    <string name="bicycle_is_use">This bike is in use.Please try another one.</string>
-    <string name="bike_lock_success">Bike lock successfully</string>
-    <string name="have_unpaid_orders">You may have an unpaid trip, please contact operator for help.</string>
-    <string name="reservation_exceeded">You have reached the maximum number of reservation today. Please try again tomorrow.</string>
-    <string name="bicycle_has_been_offline">The bike is temporarily not available for group riding. Please try another one.</string>
-    <string name="bike_not_activated">This bike has not been activated</string>
+    <string name="unlock_maximum">You have reached the maximum number of Duck unlocks</string>
+    <string name="bicycle_is_use">This Duck is in use. Please try another one.</string>
+    <string name="bike_lock_success">Duck locked successfully</string>
+    <string name="have_unpaid_orders">You may have an unpaid trip. Please contact us for assistance.</string>
+    <string name="reservation_exceeded">You have reached the maximum number of reservations for today. Please try again tomorrow.</string>
+    <string name="bicycle_has_been_offline">This Duck is temporarily unavailable for group riding. Please try another one.</string>
+    <string name="bike_not_activated">This Duck has not been activated</string>
     <string name="not_in_server_state">Not in server state</string>
-    <string name="illegal_credit_card">Illegal credit card</string>
-    <string name="bind_card_error">Bind the bank card failed, please check whether the information is entered incorrectly</string>
+    <string name="illegal_credit_card">Invalid credit card</string>
+    <string name="bind_card_error">Binding the bank card failed, please check whether the information is entered incorrectly</string>
     <string name="invitation_code_not_exist">The invitation code does not exist</string>
     <string name="operation_failed">Operation failed</string>
 
@@ -259,15 +259,15 @@
     <string name="not_null">Content cannot be empty</string>
     <string name="login_expired">Login expired!</string>
     <string name="data_null">data null</string>
-    <string name="data_already_existing">data already existing</string>
-    <string name="missing_parameter">lack param</string>
+    <string name="data_already_existing">data already exists</string>
+    <string name="missing_parameter">lacks param</string>
     <string name="service_error">service error</string>
     <string name="account_has_been_frozen">Account has been frozen</string>
     <string name="request_error">Your request is too frequent. Please try again later.</string>
     <string name="email_error">Please enter the correct email address</string>
     <string name="phone_error">Please enter the correct phone number</string>
     <string name="register_error">Please enter the correct phone number or email address</string>
-    <string name="password_length_hint">Password must be at least 8 characters long</string>
+    <string name="password_length_hint">Password must include letter(s) and number(s)</string>
     <string name="unlike">Passwords do not match</string>
     <string name="operation_failed_please_try_again">Operation failed please try again!</string>
     <string name="password_error">Please enter a valid Password</string>

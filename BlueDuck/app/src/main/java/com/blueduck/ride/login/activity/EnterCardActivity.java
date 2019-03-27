@@ -95,10 +95,6 @@ public class EnterCardActivity extends BaseActivity implements RequestCallBack,T
         dateEt = (EditText) findViewById(R.id.date_edit);
         dateEt.setOnClickListener(this);
         cvvEt = (EditText) findViewById(R.id.cvv_edit);
-        nameEt.setText(name);
-        numberEt.setText(number);
-        dateEt.setText(date);
-        cvvEt.setText(cvv);
         addCardBtn = (Button) findViewById(R.id.add_card_btn);
         addCardBtn.setOnClickListener(this);
         addCardBtn.setEnabled(false);
@@ -107,6 +103,11 @@ public class EnterCardActivity extends BaseActivity implements RequestCallBack,T
         nameEt.addTextChangedListener(textWatcher);
         dateEt.addTextChangedListener(textWatcher);
         cvvEt.addTextChangedListener(textWatcher);
+
+        nameEt.setText(name);
+        numberEt.setText(number);
+        dateEt.setText(date);
+        cvvEt.setText(cvv);
     }
 
     private class MyTextWatcher implements TextWatcher{

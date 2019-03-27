@@ -14,9 +14,12 @@ import android.widget.TextView;
 
 import com.blueduck.ride.R;
 import com.blueduck.ride.history.bean.HistoryBean;
+import com.blueduck.ride.utils.CurrencyUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.model.LatLng;
+
+import java.text.DecimalFormat;
 
 /**
  * 骑行历史记录详情对话框
@@ -95,7 +98,7 @@ public class HistoryDetailsDialog extends Dialog implements View.OnClickListener
         rideTime.setText(Utils.hourMinuteFormat(sumTime));
         if (historyBean.getAmount() != null) {
             double amount = Double.parseDouble(historyBean.getAmount());
-            cost.setText(mContext.getString(R.string.dollar) + amount);
+            cost.setText(mContext.getString(R.string.dollar) + CurrencyUtil.convertToTwoDecimalPlaces(amount));
         }else{
             cost.setText(mContext.getString(R.string.dollar) + 0.0);
         }
