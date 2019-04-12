@@ -59,6 +59,7 @@ import com.blueduck.ride.utils.BorderDialog;
 import com.blueduck.ride.utils.BroadCastValues;
 import com.blueduck.ride.utils.CommonSharedValues;
 import com.blueduck.ride.utils.CommonUtils;
+import com.blueduck.ride.utils.CurrencyUtil;
 import com.blueduck.ride.utils.DownloadService;
 import com.blueduck.ride.utils.EndRideDialog;
 import com.blueduck.ride.utils.GlideCircleTransform;
@@ -94,8 +95,8 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
     private MyApplication myApplication;//全局的类，随App的状态
     private MainService mainService;
     private MainBroadcast mainBroadcast;
-    private BluetoothAdapter mBluetoothAdapter;
-    private BluetoothManager bluetoothManager;
+    //private BluetoothAdapter mBluetoothAdapter;
+    //private BluetoothManager bluetoothManager;
     private ScooterService scooterService = null;//滑板车服务类 Scooter service class
 
     private ImageView menuHead;
@@ -104,7 +105,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
     private LinearLayout scanLayout,rateRideLayout;
 
     private LinearLayout scooterInfoLayout;
-    private TextView infoNumber,infoBattery;
+    private TextView infoNumber,infoBattery,infoPrice;
 
     private LinearLayout useLayout;
     private TextView useNumber,useBattery;
@@ -153,21 +154,21 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
         initUseEndLayout();
         initBroadCast();//初始化广播 Initialize broadcast
         registerLocalReceiver();//初始化广播(滑板车) Initialize the broadcast (scooter)
-        initBluetooth();//初始化蓝牙 Initialize Bluetooth
+        //initBluetooth();//初始化蓝牙 Initialize Bluetooth
     }
 
-    private void initBluetooth() {
-        bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        mBluetoothAdapter = bluetoothManager.getAdapter();
-    }
+//    private void initBluetooth() {
+//        bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+//        mBluetoothAdapter = bluetoothManager.getAdapter();
+//    }
 
-    private boolean isOpenBlue(){
-        if(mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()){//未开启蓝牙 Bluetooth is not turned on
-            return false;
-        }else{//已开启蓝牙 Bluetooth turned on
-            return true;
-        }
-    }
+//    private boolean isOpenBlue(){
+//        if(mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()){//未开启蓝牙 Bluetooth is not turned on
+//            return false;
+//        }else{//已开启蓝牙 Bluetooth turned on
+//            return true;
+//        }
+//    }
 
     private void initBroadCast(){
         IntentFilter intentFilter = new IntentFilter();
@@ -189,6 +190,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
         scooterInfoLayout = (LinearLayout) findViewById(R.id.main_scooter_info_layout);
         infoNumber = (TextView) findViewById(R.id.scooter_info_number);
         infoBattery = (TextView) findViewById(R.id.scooter_info_battery);
+        infoPrice = (TextView) findViewById(R.id.scooter_info_price);
         findViewById(R.id.scooter_info_scan_layout).setOnClickListener(this);
         findViewById(R.id.info_report_scooter).setOnClickListener(this);
     }
@@ -416,6 +418,7 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
             saveSharedValue(CommonSharedValues.SP_FEEDBACK_NUMBER,myItem.getNumber());
             if (myItem.getReadpack() == 0){//普通滑板车 Ordinary scooter
                 infoNumber.setText(myItem.getNumber());
+                infoPrice.setText("$" + CurrencyUtil.convertToTwoDecimalPlaces(Double.valueOf(myItem.getPrice())));
                 infoBattery.setText(myItem.getPowerPercent()+"%");
             }
             scooterInfoLayout.setVisibility(View.VISIBLE);
@@ -1116,19 +1119,19 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
             LogUtils.i(TAG,"每次初始化界面调用了骑行状态");
         }
         if (scooterService != null){
-            if (isOpenBlue()) {//蓝牙已开启 Bluetooth is on
-                String mac = sp.getString(CommonSharedValues.SP_MAC_ADDRESS, "");
-                if (!TextUtils.isEmpty(mac)) {
-                    if (!isConnectedDevice(mac.toUpperCase())) {//如果蓝牙未连接 If Bluetooth is not connected
-                        //Start scanning Bluetooth devices, otherwise you can't connect directly
-                        startScanBLEDevice(mac.toUpperCase(), 20000);//开始扫描蓝牙设备，不然直接连连不上
-                    }else{
-                        LogUtils.i(TAG, "areRiding: 滑板车蓝牙已经连接，可以通讯");
-                    }
-                }
-            }else{
+//            if (isOpenBlue()) {//蓝牙已开启 Bluetooth is on
+//                String mac = sp.getString(CommonSharedValues.SP_MAC_ADDRESS, "");
+//                if (!TextUtils.isEmpty(mac)) {
+//                    if (!isConnectedDevice(mac.toUpperCase())) {//如果蓝牙未连接 If Bluetooth is not connected
+//                        //Start scanning Bluetooth devices, otherwise you can't connect directly
+//                        startScanBLEDevice(mac.toUpperCase(), 20000);//开始扫描蓝牙设备，不然直接连连不上
+//                    }else{
+//                        LogUtils.i(TAG, "areRiding: 滑板车蓝牙已经连接，可以通讯");
+//                    }
+//                }
+            //}else{
                 LogUtils.i(TAG, "areRiding: 蓝牙开关未开启");
-            }
+            //}
         }
     }
 
@@ -1514,135 +1517,135 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
 
     /***--------------------滑板车连接蓝牙部分 Scooter connected to the Bluetooth part ------------------------**/
 
-    @Override
-    protected void onServiceConnectedCallBack(ScooterService mBLEService) {
-        LogUtils.i(TAG, "onServiceConnectedCallBack: ---主界面----初始化绑定服务回调");
-        scooterService = mBLEService;
-    }
+//    @Override
+//    protected void onServiceConnectedCallBack(ScooterService mBLEService) {
+//        LogUtils.i(TAG, "onServiceConnectedCallBack: ---主界面----初始化绑定服务回调");
+//        scooterService = mBLEService;
+//    }
+//
+//    @Override
+//    protected void onScanBLEDeviceCallBack(BluetoothDevice scanBLEDevice) {
+//        if (isWindowFocus && isRiding) {
+//            stopScanBLEDevice();//停止扫描 Stop scanning
+//            connectScooter(scanBLEDevice.getAddress());//连接滑板车 Connecting scooter
+//            LogUtils.i(TAG, "onScanBLEDeviceCallBack: -----主界面-----扫描蓝牙设备成功连接蓝牙--蓝牙mac地址为：" + scanBLEDevice.getAddress() + "---蓝牙名称为：" + scanBLEDevice.getName());
+//        }
+//    }
+//
+//    @Override
+//    protected void onScanBLEDeviceNotCallBack(String deviceAddress) {
+//        if (isWindowFocus && isRiding) {
+//            if (!isConnectedDevice(deviceAddress)) {//如果蓝牙未连接 If Bluetooth is not connected
+//                //Start scanning Bluetooth devices, otherwise you can't connect directly
+//                startScanBLEDevice(deviceAddress, 20000);//开始扫描蓝牙设备，不然直接连连不上
+//                LogUtils.i(TAG, "onScanBLEDeviceNotCallBack: ---主界面---扫描蓝牙失败！！！接着扫描");
+//            }else{
+//                LogUtils.i(TAG, "onScanBLEDeviceNotCallBack: ---主界面---滑板车蓝牙已经连接，可以通讯");
+//            }
+//        }
+//    }
+//
+//    @Override
+//    protected void onBLEWriteNotify() {
+//        if (isWindowFocus && isRiding) {
+//            sendGetKeyCommand(CommonSharedValues.BLE_SCOOTER_KEY);
+//            LogUtils.i(TAG, "onBLEWriteNotify: -----主界面-----注册了通知回调，去获取key");
+//        }
+//    }
+//
+//    @Override
+//    protected void onBLEGetKeyError() {
+//        //Disconnect the lock, disconnect the Bluetooth callback method will reconnect
+//        sendDisconnectScooter();//断开锁连接，断开蓝牙回调方法会重连
+//        LogUtils.i(TAG, "onBLEGetKeyError: ---主界面--获取Key失败，先断开蓝牙再扫描连接");
+//    }
+//
+//    @Override
+//    protected void onBLEGetKey(String mac, byte communicationKey) {
+//        isGetKey = true;
+//        if (isWindowFocus && isRiding) {
+//            sendGetDeviceInfo();//获取滑板车锁状态信息 Get scooter lock status information
+//            LogUtils.i(TAG, "onBLEGetKey: ----主界面----获取Key成功,去获取锁状态");
+//        }
+//    }
+//
+//    @Override
+//    protected void onBLEScooterInfo(int power, int speedMode, int speed, int mileage, int prescientMileage) {
+//        if (isWindowFocus && isRiding) {
+//            LogUtils.i(TAG, "onBLEScooterInfo: ---主界面---获取到滑板车信息 电量= " + power + " 模式= " + speedMode + " 速度= " + speed);
+//            useBattery.setText(power + "%");
+//            saveSharedValue(CommonSharedValues.SP_LOCK_POWER,power+"");
+//        }
+//    }
+//
+//    @Override
+//    protected void onBLEDeviceInfo(int voltage, int status, String version) {
+//        if (isWindowFocus && isRiding) {
+//            LogUtils.i(TAG, "onBLEDeviceInfo: ---主界面---获取到锁状态信息");
+//            if ((status & 0x40) != 0) {//有旧数据 Old data
+//                sendGetOldData();
+//                LogUtils.i(TAG, "onBLEDeviceInfo:  ---主界面--有旧数据，去获得旧数据");
+//            } else {//无旧数据 No old data
+//                if ((status & 0x01) != 0) {//锁是开的 The lock is open
+//                    LogUtils.i(TAG, "onBLEDeviceInfo:  ---主界面---无旧数据，锁是开着的状态，可以进行通信了");
+//                } else if ((status & 0x02) != 0) {//锁是关的 Lock is off
+//                    LogUtils.i(TAG, "onBLEDeviceInfo:  ----主界面---无旧数据，锁是关着的状态");
+//                }
+//            }
+//        }
+//    }
+//
+//    @Override
+//    protected void onBLEScooterOldData(long timestamp, long openTime, long userId) {
+//        if (isWindowFocus && isRiding) {
+//            LogUtils.i(TAG, "onBLEScooterOldData: ----主界面---- 获取到旧数据 向服务器上传旧数据");
+//            setUnLockClose(Integer.parseInt(userId+""), Integer.parseInt(openTime+""), timestamp);
+//        }
+//    }
+//
+//    @Override
+//    protected void onBLEScooterCloseCallBack(int status, long timestamp, long time) {
+//        if (!isScanUnlock) {
+//            LogUtils.i(TAG, "onBLEBicnmanOpenCallBack: ---主界面---收到蓝牙关锁通知 status = " + status);
+//            if (status == 1) {//关锁成功 Locked successfully
+//                setUnLockClose(0, Integer.parseInt(time + ""), timestamp);
+//                isUnLockClose = true;
+//                LogUtils.i(TAG, "onBLEBicnmanOpenCallBack: ---主界面---关锁成功,通知服务器关锁成功");
+//            } else if (status == 2) {//关锁失败 Lock failure
+//                Toast.makeText(this, getString(R.string.operation_failed), Toast.LENGTH_SHORT).show();
+//                LogUtils.i(TAG, "onBLEBicnmanOpenCallBack: ---主界面---关锁失败！！");
+//            }
+//        }
+//    }
 
-    @Override
-    protected void onScanBLEDeviceCallBack(BluetoothDevice scanBLEDevice) {
-        if (isWindowFocus && isRiding) {
-            stopScanBLEDevice();//停止扫描 Stop scanning
-            connectScooter(scanBLEDevice.getAddress());//连接滑板车 Connecting scooter
-            LogUtils.i(TAG, "onScanBLEDeviceCallBack: -----主界面-----扫描蓝牙设备成功连接蓝牙--蓝牙mac地址为：" + scanBLEDevice.getAddress() + "---蓝牙名称为：" + scanBLEDevice.getName());
-        }
-    }
+//    @Override
+//    protected void onBLEDisconnected() {
+//        if ("2".equals(bikeType)) {//滑板车 scooter
+//            isGetKey = false;
+//            if (isWindowFocus && isRiding) {
+//                if (isOpenBlue()) {
+//                    //Start scanning Bluetooth devices, otherwise you can't connect directly
+//                    startScanBLEDevice(sp.getString(CommonSharedValues.SP_MAC_ADDRESS, "").toUpperCase(), 20000);//开始扫描蓝牙设备，不然直接连连不上
+//                    LogUtils.i(TAG, "onBLEDisconnected: --主界面--蓝牙断开连接,重新扫描");
+//                } else {
+//                    LogUtils.i(TAG, "onBLEDisconnected: --主界面--蓝牙断开连接,系统蓝牙开关被用户关闭！！！");
+//                }
+//            }
+//        }
+//    }
 
-    @Override
-    protected void onScanBLEDeviceNotCallBack(String deviceAddress) {
-        if (isWindowFocus && isRiding) {
-            if (!isConnectedDevice(deviceAddress)) {//如果蓝牙未连接 If Bluetooth is not connected
-                //Start scanning Bluetooth devices, otherwise you can't connect directly
-                startScanBLEDevice(deviceAddress, 20000);//开始扫描蓝牙设备，不然直接连连不上
-                LogUtils.i(TAG, "onScanBLEDeviceNotCallBack: ---主界面---扫描蓝牙失败！！！接着扫描");
-            }else{
-                LogUtils.i(TAG, "onScanBLEDeviceNotCallBack: ---主界面---滑板车蓝牙已经连接，可以通讯");
-            }
-        }
-    }
-
-    @Override
-    protected void onBLEWriteNotify() {
-        if (isWindowFocus && isRiding) {
-            sendGetKeyCommand(CommonSharedValues.BLE_SCOOTER_KEY);
-            LogUtils.i(TAG, "onBLEWriteNotify: -----主界面-----注册了通知回调，去获取key");
-        }
-    }
-
-    @Override
-    protected void onBLEGetKeyError() {
-        //Disconnect the lock, disconnect the Bluetooth callback method will reconnect
-        sendDisconnectScooter();//断开锁连接，断开蓝牙回调方法会重连
-        LogUtils.i(TAG, "onBLEGetKeyError: ---主界面--获取Key失败，先断开蓝牙再扫描连接");
-    }
-
-    @Override
-    protected void onBLEGetKey(String mac, byte communicationKey) {
-        isGetKey = true;
-        if (isWindowFocus && isRiding) {
-            sendGetDeviceInfo();//获取滑板车锁状态信息 Get scooter lock status information
-            LogUtils.i(TAG, "onBLEGetKey: ----主界面----获取Key成功,去获取锁状态");
-        }
-    }
-
-    @Override
-    protected void onBLEScooterInfo(int power, int speedMode, int speed, int mileage, int prescientMileage) {
-        if (isWindowFocus && isRiding) {
-            LogUtils.i(TAG, "onBLEScooterInfo: ---主界面---获取到滑板车信息 电量= " + power + " 模式= " + speedMode + " 速度= " + speed);
-            useBattery.setText(power + "%");
-            saveSharedValue(CommonSharedValues.SP_LOCK_POWER,power+"");
-        }
-    }
-
-    @Override
-    protected void onBLEDeviceInfo(int voltage, int status, String version) {
-        if (isWindowFocus && isRiding) {
-            LogUtils.i(TAG, "onBLEDeviceInfo: ---主界面---获取到锁状态信息");
-            if ((status & 0x40) != 0) {//有旧数据 Old data
-                sendGetOldData();
-                LogUtils.i(TAG, "onBLEDeviceInfo:  ---主界面--有旧数据，去获得旧数据");
-            } else {//无旧数据 No old data
-                if ((status & 0x01) != 0) {//锁是开的 The lock is open
-                    LogUtils.i(TAG, "onBLEDeviceInfo:  ---主界面---无旧数据，锁是开着的状态，可以进行通信了");
-                } else if ((status & 0x02) != 0) {//锁是关的 Lock is off
-                    LogUtils.i(TAG, "onBLEDeviceInfo:  ----主界面---无旧数据，锁是关着的状态");
-                }
-            }
-        }
-    }
-
-    @Override
-    protected void onBLEScooterOldData(long timestamp, long openTime, long userId) {
-        if (isWindowFocus && isRiding) {
-            LogUtils.i(TAG, "onBLEScooterOldData: ----主界面---- 获取到旧数据 向服务器上传旧数据");
-            setUnLockClose(Integer.parseInt(userId+""), Integer.parseInt(openTime+""), timestamp);
-        }
-    }
-
-    @Override
-    protected void onBLEScooterCloseCallBack(int status, long timestamp, long time) {
-        if (!isScanUnlock) {
-            LogUtils.i(TAG, "onBLEBicnmanOpenCallBack: ---主界面---收到蓝牙关锁通知 status = " + status);
-            if (status == 1) {//关锁成功 Locked successfully
-                setUnLockClose(0, Integer.parseInt(time + ""), timestamp);
-                isUnLockClose = true;
-                LogUtils.i(TAG, "onBLEBicnmanOpenCallBack: ---主界面---关锁成功,通知服务器关锁成功");
-            } else if (status == 2) {//关锁失败 Lock failure
-                Toast.makeText(this, getString(R.string.operation_failed), Toast.LENGTH_SHORT).show();
-                LogUtils.i(TAG, "onBLEBicnmanOpenCallBack: ---主界面---关锁失败！！");
-            }
-        }
-    }
-
-    @Override
-    protected void onBLEDisconnected() {
-        if ("2".equals(bikeType)) {//滑板车 scooter
-            isGetKey = false;
-            if (isWindowFocus && isRiding) {
-                if (isOpenBlue()) {
-                    //Start scanning Bluetooth devices, otherwise you can't connect directly
-                    startScanBLEDevice(sp.getString(CommonSharedValues.SP_MAC_ADDRESS, "").toUpperCase(), 20000);//开始扫描蓝牙设备，不然直接连连不上
-                    LogUtils.i(TAG, "onBLEDisconnected: --主界面--蓝牙断开连接,重新扫描");
-                } else {
-                    LogUtils.i(TAG, "onBLEDisconnected: --主界面--蓝牙断开连接,系统蓝牙开关被用户关闭！！！");
-                }
-            }
-        }
-    }
-
-    @Override
-    protected void onSystemBLEOpen() {
-        if ("2".equals(bikeType)) {//滑板车 scooter
-            if (isWindowFocus && isRiding) {
-                if (isOpenBlue()) {
-                    //Start scanning Bluetooth devices, otherwise you can't connect directly
-                    startScanBLEDevice(sp.getString(CommonSharedValues.SP_MAC_ADDRESS, "").toUpperCase(), 20000);//开始扫描蓝牙设备，不然直接连连不上
-                    LogUtils.i(TAG, "onSystemBLEClose: ---主界面---接收到系统蓝牙 开关 开启 ，重新扫描连接蓝牙");
-                }
-            }
-        }
-    }
+//    @Override
+//    protected void onSystemBLEOpen() {
+//        if ("2".equals(bikeType)) {//滑板车 scooter
+//            if (isWindowFocus && isRiding) {
+//                if (isOpenBlue()) {
+//                    //Start scanning Bluetooth devices, otherwise you can't connect directly
+//                    startScanBLEDevice(sp.getString(CommonSharedValues.SP_MAC_ADDRESS, "").toUpperCase(), 20000);//开始扫描蓝牙设备，不然直接连连不上
+//                    LogUtils.i(TAG, "onSystemBLEClose: ---主界面---接收到系统蓝牙 开关 开启 ，重新扫描连接蓝牙");
+//                }
+//            }
+//        }
+//    }
 
     @Override
     protected void onBLECommandError(int status) {
