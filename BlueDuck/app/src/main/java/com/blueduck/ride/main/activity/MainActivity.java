@@ -483,6 +483,10 @@ public class MainActivity extends BaseMapActivity implements View.OnClickListene
         intent.putExtra("curLng", curLng + "");
         intent.putExtra("outArea", outArea);
         intent.putExtra("rideUser",rideUser);
+        MyItem myItem = (MyItem) clickMarker.getTag();
+        if (myItem != null) {
+            intent.putExtra("pricePerMinute", "$" + CurrencyUtil.convertToTwoDecimalPlaces(Double.valueOf(myItem.getPrice())));
+        }
         startActivity(intent);
     }
 

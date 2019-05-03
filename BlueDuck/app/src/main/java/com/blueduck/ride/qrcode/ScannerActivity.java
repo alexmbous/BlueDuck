@@ -42,6 +42,7 @@ public class ScannerActivity extends BaseActivity implements ZBarScannerView.Res
     private boolean isIssue = false;//是否是报故障扫码 / Is it a fault scan code
     private boolean isLicense = false;//是否扫描驾照 / Scan your driver's license
     private String curLat,curLng,outArea,rideUser;
+    private String pricePerMinute;
 
     @Override
     protected int setLayoutViewId() {
@@ -60,6 +61,7 @@ public class ScannerActivity extends BaseActivity implements ZBarScannerView.Res
         curLng = getIntent().getStringExtra("curLng");
         outArea = getIntent().getStringExtra("outArea");
         rideUser = getIntent().getStringExtra("rideUser");
+        pricePerMinute = getIntent().getStringExtra("pricePerMinute");
     }
 
     @Override
@@ -79,6 +81,10 @@ public class ScannerActivity extends BaseActivity implements ZBarScannerView.Res
             topImg.setVisibility(View.GONE);
             topDescription.setVisibility(View.VISIBLE);
             inputLayout.setVisibility(View.GONE);
+        }
+        if(!isLicense && !isIssue && (pricePerMinute != null)) { // if ride Scan QR
+            topDescription.setText("$1 to unlock, then " + pricePerMinute + "/minute");
+            topDescription.setVisibility(View.VISIBLE);
         }
         ViewGroup container = findViewById(R.id.container);
         //ViewFinderView is a view customized according to requirements, will be overlaid on the camera preview screen,
