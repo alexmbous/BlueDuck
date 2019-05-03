@@ -87,12 +87,14 @@
         <item>@drawable/ride_history</item>
         <item>@drawable/how_to_ride</item>
         <item>@drawable/support</item>
+        <item>@drawable/quack_phone</item>
     </array>
     <string-array name="menu_list_title_array">
         <item>My Account</item>
         <item>Billing</item>
         <item>Ride History</item>
         <item>How to Ride</item>
+        <item>Report</item>
         <item>Support</item>
     </string-array>
     <string name="how_to_ride_a_duck">How to ride a Duck</string>
@@ -130,7 +132,7 @@
     <!-- billing -->
     <string name="billing_title">Billing</string>
     <string name="add_payment_method_text">Add Payment Method</string>
-    <string name="billing_description">Lorem ipsum dolor sit amet,consectetur adipiscing elit.</string>
+    <string name="billing_description">Add your preferred payment method to unlock your Duck.</string>
     <string name="default_text">Default</string>
     <string name="default_card">Default card</string>
     <string name="delete_card">Delete card</string>
@@ -161,6 +163,10 @@
     <string name="please_select_the_issue">Please select an issue</string>
     <string name="report_success_title">Your report was submitted</string>
     <string name="report_success_content">Thank you for your submission.  This helps us improve your future experience.</string>
+
+    <!--support-->
+    <string name="support_title">Contact Blue Duck Support</string>
+
 
     <!-- ride end -->
     <string name="scooter">Duck</string>

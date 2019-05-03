@@ -39,6 +39,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <!-- google 地图渲染地图时使用 Use when the map renders the map-->
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -81,6 +83,7 @@
         <activity android:name=".billing.activity.BillingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".history.activity.HistoryActivity" android:screenOrientation="portrait"/>
         <activity android:name=".report.activity.ReportActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".support.activity.BdSupportActivity" android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

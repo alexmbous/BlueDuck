@@ -84,9 +84,9 @@ public class BillingActivity extends BaseActivity implements RequestCallBack,Car
         noPaymentMethodLayout = (RelativeLayout) findViewById(R.id.no_payment_method_layout);
         havePaymentMethodLayout = (ScrollView) findViewById(R.id.have_payment_method_layout);
         findViewById(R.id.billing_enter_card_layout).setOnClickListener(this);
-        findViewById(R.id.billing_scan_card_layout).setOnClickListener(this);
+        //findViewById(R.id.billing_scan_card_layout).setOnClickListener(this);
         findViewById(R.id.card_list_enter_card_layout).setOnClickListener(this);
-        findViewById(R.id.card_list_scan_card_layout).setOnClickListener(this);
+        //findViewById(R.id.card_list_scan_card_layout).setOnClickListener(this);
         recyclerView = (RecyclerView) findViewById(R.id.card_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -103,15 +103,15 @@ public class BillingActivity extends BaseActivity implements RequestCallBack,Car
             case R.id.billing_enter_card_layout:
                 skipEnter("","","","");
                 break;
-            case R.id.billing_scan_card_layout:
-                scanCard();
-                break;
+//            case R.id.billing_scan_card_layout:
+//                scanCard();
+//                break;
             case R.id.card_list_enter_card_layout:
                 skipEnter("","","","");
                 break;
-            case R.id.card_list_scan_card_layout:
-                scanCard();
-                break;
+//            case R.id.card_list_scan_card_layout:
+//                scanCard();
+//                break;
         }
     }
 
