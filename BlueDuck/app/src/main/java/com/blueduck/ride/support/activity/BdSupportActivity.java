@@ -23,7 +23,7 @@ public class BdSupportActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void initView() {
         baseTitleLayout.setVisibility(View.VISIBLE);
-        baseTitleText.setText(getString(R.string.report_title));
+        baseTitleText.setText(getString(R.string.support_title));
         backImg = (ImageView) findViewById(R.id.title_left_image);
         backImg.setImageResource(R.drawable.menu);
         callSupportLayout = (LinearLayout) findViewById(R.id.call_support_layout);
