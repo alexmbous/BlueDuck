@@ -68,11 +68,11 @@ public class HistoryAdapter extends BaseAdapter {
         final HistoryBean historyBean = getItem(position);
         viewHolder.date.setText(Utils.dateFormat(historyBean.getDate()));
         viewHolder.time.setText(Utils.hourMinuteFormat(historyBean.getStartStamp()));
-        if (historyBean.getAmount() != null) {
-            double amount = Double.parseDouble(historyBean.getAmount());
+        if (historyBean.getRideAmount() != null) {
+            double amount = Double.parseDouble(historyBean.getRideAmount());
             viewHolder.amount.setText(mContext.getString(R.string.dollar) + CurrencyUtil.convertToTwoDecimalPlaces(amount));
         }else{
-            viewHolder.amount.setText(mContext.getString(R.string.dollar) + 0.0);
+            viewHolder.amount.setText("");
         }
         viewHolder.number.setText(mContext.getString(R.string.scooter_number_text)+
                 mContext.getString(R.string.blank)+historyBean.getNumber());

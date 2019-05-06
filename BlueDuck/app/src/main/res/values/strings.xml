@@ -60,7 +60,7 @@
     <string name="verification">Verification</string>
     <string name="date_picker">DatePicker</string>
     <string name="add_payment_method">Add Payment Method</string>
-    <string name="enter_card">Enter Card</string>
+    <string name="enter_card">Add Card</string>
     <string name="scan_card">Scan Card</string>
     <string name="name_on_card">Name on Card</string>
     <string name="card_number">Card Number</string>

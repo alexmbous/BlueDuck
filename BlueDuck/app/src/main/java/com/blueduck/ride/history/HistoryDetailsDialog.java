@@ -96,11 +96,11 @@ public class HistoryDetailsDialog extends Dialog implements View.OnClickListener
         long endTime = Long.parseLong(historyBean.getEndStamp()) * 1000;
         long sumTime = endTime - startTime;
         rideTime.setText(Utils.hourMinuteFormat(sumTime));
-        if (historyBean.getAmount() != null) {
-            double amount = Double.parseDouble(historyBean.getAmount());
+        if (historyBean.getRideAmount() != null) {
+            double amount = Double.parseDouble(historyBean.getRideAmount());
             cost.setText(mContext.getString(R.string.dollar) + CurrencyUtil.convertToTwoDecimalPlaces(amount));
         }else{
-            cost.setText(mContext.getString(R.string.dollar) + 0.0);
+            cost.setText("");
         }
     }
 

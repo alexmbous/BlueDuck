@@ -21,6 +21,15 @@ public class HistoryBean implements Serializable{
     private String groupRide;
     private String startStamp;
     private String endStamp;
+    private String rideAmount;
+
+    public String getRideAmount() {
+    return rideAmount;
+    }
+
+    public void setRideAmount(String rideAmount){
+        this.rideAmount = rideAmount;
+    }
 
     public String getAmount() {
         return amount;
