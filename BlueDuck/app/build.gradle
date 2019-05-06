@@ -26,7 +26,7 @@ android {
         applicationId "com.blueduckapp.blueduck"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 20018
+        versionCode 20019
         versionName "2.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
