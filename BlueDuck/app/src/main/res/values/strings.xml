@@ -19,7 +19,7 @@
         <item>How to Stand</item>
         <item>Give it Some Gas</item>
         <item>Give it a Brake</item>
-        <item>Fly Wild!</item>
+        <item>Fly Safely!</item>
         <item>How to Land</item>
         <item>Something Wrong?</item>
     </string-array>
@@ -30,7 +30,7 @@
         <item>Put your dominant foot forward to balance</item>
         <item>Kick off to start and press down on the toggle to increase your speed</item>
         <item>Gradually squeeze to reduce speed safely</item>
-        <item>Soar to your destination</item>
+        <item>Soar to your destination. \n *Follow your local sidewalk laws.</item>
         <item>Land out of harm\'s way at your favorite spots for other Flock members to find</item>
         <item>Report your Duck through the app menu so we can take care of it</item>
     </string-array>
