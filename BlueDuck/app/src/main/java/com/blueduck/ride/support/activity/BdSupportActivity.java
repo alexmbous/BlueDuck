@@ -43,7 +43,7 @@ public class BdSupportActivity extends BaseActivity implements View.OnClickListe
     public void openDialer() {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         // Send phone number to intent as data
-        intent.setData(Uri.parse("tel:" + "+8332583382"));
+        intent.setData(Uri.parse("tel:" + "+18332583382"));
         // Start the dialer app activity with number
         startActivity(intent);
     }
